@@ -3,7 +3,13 @@ export interface Item {
   etag: string;
   id: string;
   snippet: Snippet;
-  statistics: Statistics;
+  statistics: {
+    viewCount: string;
+    likeCount: string;
+    dislikeCount: string;
+    favoriteCount: string;
+    commentCount: string;
+  };
 }
 
 interface Snippet {
@@ -11,38 +17,26 @@ interface Snippet {
   channelId: string;
   title: string;
   description: string;
-  thumbnails: Thumbnails;
+  thumbnails: {
+    default: ThumbnailsItems;
+    medium: ThumbnailsItems;
+    high: ThumbnailsItems;
+    standard: ThumbnailsItems;
+    maxres: ThumbnailsItems;
+  };
   channelTitle: string;
   tags: string[];
   categoryId: string;
   liveBroadcastContent: string;
-  localized: Localized;
+  localized: {
+    title: string;
+    description: string;
+  };
   defaultAudioLanguage: string;
-}
-
-interface Thumbnails {
-  default: ThumbnailsItems;
-  medium: ThumbnailsItems;
-  high: ThumbnailsItems;
-  standard: ThumbnailsItems;
-  maxres: ThumbnailsItems;
 }
 
 interface ThumbnailsItems {
   url: string;
   width: number;
   height: number;
-}
-
-interface Localized {
-  title: string;
-  description: string;
-}
-
-interface Statistics {
-  viewCount: string;
-  likeCount: string;
-  dislikeCount: string;
-  favoriteCount: string;
-  commentCount: string;
 }

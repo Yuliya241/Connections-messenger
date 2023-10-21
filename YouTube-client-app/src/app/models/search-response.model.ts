@@ -3,11 +3,9 @@ import { Item } from './search-item.model';
 export interface Response {
   kind: string;
   etag: string;
-  pageInfo: PageInfo;
+  pageInfo: {
+    totalResults: number;
+    resultsPerPage: number;
+  };
   items: Item[];
-}
-
-interface PageInfo {
-  totalResults: number;
-  resultsPerPage: number;
 }
