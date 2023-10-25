@@ -1,0 +1,22 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+}
+
+p {
+  margin: 0;
+}
+
+.label {
+  color: rgba(47, 128, 237, 1);
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14.06px;
+  margin: 0 10px 0 15px;
+}
+
+.input {
+  outline: 0;
+  border: 0;
+}
