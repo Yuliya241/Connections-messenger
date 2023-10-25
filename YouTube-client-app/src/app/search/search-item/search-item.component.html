@@ -1,4 +1,4 @@
-<mat-card class="card">
+<mat-card class="card" [appCardBorder]="item.snippet.publishedAt">
   <img mat-card-image src={{item.snippet.thumbnails.high.url}} alt={{item.snippet.title}}>
   <div class="statistics-block">
     <div class="counts-block">

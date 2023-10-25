@@ -12,6 +12,7 @@ import { SearchResultsComponent } from './search/search-results/search-results.c
 import { HeaderComponent } from './header/header/header.component';
 import { SortingButtonsComponent } from './filtering-criteria-block/sorting-buttons/sorting-buttons.component';
 import { FilterInputComponent } from './filtering-criteria-block/filter-input/filter-input.component';
+import { CardBorderDirective } from './directive/card-border.directive';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { FilterInputComponent } from './filtering-criteria-block/filter-input/fi
     SearchResultsComponent,
     SortingButtonsComponent,
     FilterInputComponent,
+    CardBorderDirective,
   ],
   imports: [
     BrowserModule,
