@@ -1,1 +1,23 @@
-<p>search-item works!</p>
+<mat-card class="card">
+  <img mat-card-image src={{item.snippet.thumbnails.high.url}} alt={{item.snippet.title}}>
+  <div class="statistics-block">
+    <div class="counts-block">
+      <mat-icon class="icon">visibility</mat-icon>
+      <p class="count">{{ item.statistics.viewCount }}</p>
+    </div>
+    <div class="counts-block">
+      <mat-icon class="icon">thumb_up</mat-icon>
+      <p class="count">{{ item.statistics.likeCount }}</p>
+    </div>
+    <div class="counts-block">
+      <mat-icon class="icon">thumb_down</mat-icon>
+      <p class="count">{{ item.statistics.dislikeCount }}</p>
+    </div>
+    <div class="counts-block">
+      <mat-icon class="icon">mode_comment</mat-icon>
+      <p class="count">{{ item.statistics.commentCount }}</p>
+    </div>
+  </div>
+  <h4 class="title">{{ item.snippet.localized.title }}</h4>
+  <button mat-raised-button color="primary" class="button">more...</button>
+</mat-card>

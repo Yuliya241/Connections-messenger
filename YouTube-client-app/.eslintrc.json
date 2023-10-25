@@ -36,7 +36,6 @@
             "style": "kebab-case"
           }
         ],
-        "@angular-eslint/template/label-has-associated-control": "error",
         "@typescript-eslint/await-thenable": "error",
         "import/prefer-default-export": "off"
       }
