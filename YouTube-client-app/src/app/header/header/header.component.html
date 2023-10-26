@@ -1,7 +1,7 @@
 <header class="wrapper">
   <div class="search-block">
     <app-logo></app-logo>
-    <app-search-input></app-search-input>
+    <app-search-input (showResults)="searchResults()"></app-search-input>
     <app-settings></app-settings>
   </div>
   <app-login></app-login>

@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+
+import { LoginComponent } from './login/login.component';
 import { LogoComponent } from './logo/logo.component';
 import { SearchInputComponent } from './search-input/search-input.component';
 import { SettingsButtonComponent } from './settings-button/settings-button.component';
-import { LoginComponent } from './login/login.component';
 
 @Component({
   selector: 'app-header',
@@ -12,5 +13,9 @@ import { LoginComponent } from './login/login.component';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
+  @Output() showResults = new EventEmitter();
 
+  searchResults() {
+    this.showResults.emit();
+  }
 }

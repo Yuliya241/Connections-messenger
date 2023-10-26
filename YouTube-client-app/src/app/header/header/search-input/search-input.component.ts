@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
@@ -9,5 +9,9 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrls: ['./search-input.component.scss'],
 })
 export class SearchInputComponent {
+  @Output() showResults = new EventEmitter();
 
+  searchResults() {
+    this.showResults.emit();
+  }
 }
