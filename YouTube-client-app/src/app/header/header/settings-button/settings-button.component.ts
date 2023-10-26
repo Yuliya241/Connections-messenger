@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-settings',
@@ -10,5 +10,9 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrls: ['./settings-button.component.scss'],
 })
 export class SettingsButtonComponent {
+  @Output() showFilteringCriteria = new EventEmitter();
 
+  showFilter() {
+    this.showFilteringCriteria.emit();
+  }
 }

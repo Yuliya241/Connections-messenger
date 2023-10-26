@@ -13,4 +13,10 @@ export class AppComponent {
   showSearchResults() {
     this.isSearchResults = true;
   }
+
+  isFilteringCriteriaBlock = false;
+
+  showFilterButtons() {
+    this.isFilteringCriteriaBlock = !this.isFilteringCriteriaBlock;
+  }
 }

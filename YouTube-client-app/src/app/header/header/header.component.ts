@@ -15,7 +15,13 @@ import { SettingsButtonComponent } from './settings-button/settings-button.compo
 export class HeaderComponent {
   @Output() showResults = new EventEmitter();
 
+  @Output() showFilteringCriteria = new EventEmitter();
+
   searchResults() {
     this.showResults.emit();
+  }
+
+  showFilter() {
+    this.showFilteringCriteria.emit();
   }
 }

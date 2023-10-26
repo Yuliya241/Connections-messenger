@@ -1,7 +1,8 @@
 <div class="wrapper">
   <div class="colored-block">
-    <app-header class="header" (showResults)="showSearchResults()"></app-header>
-    <div class="sorting-block">
+    <app-header class="header" (showResults)="showSearchResults()"
+      (showFilteringCriteria)="showFilterButtons()"></app-header>
+    <div class="sorting-block" *ngIf="isFilteringCriteriaBlock">
       <app-sorting-buttons></app-sorting-buttons>
       <app-filter-input></app-filter-input>
     </div>
