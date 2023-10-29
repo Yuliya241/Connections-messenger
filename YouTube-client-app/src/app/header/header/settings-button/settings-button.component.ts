@@ -10,9 +10,9 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrls: ['./settings-button.component.scss'],
 })
 export class SettingsButtonComponent {
-  @Output() showFilteringCriteria = new EventEmitter();
+  @Output() showFilterBlock = new EventEmitter();
 
   showFilter() {
-    this.showFilteringCriteria.emit();
+    this.showFilterBlock.emit();
   }
 }

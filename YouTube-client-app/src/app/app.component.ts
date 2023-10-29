@@ -12,7 +12,7 @@ import { Item } from './models/search-item.model';
 export class AppComponent {
   title = 'YouTube-client-app';
 
-  isFilteringCriteriaBlock = false;
+  isFilterShow = false;
 
   items: Item[] = [];
 
@@ -27,7 +27,7 @@ export class AppComponent {
   }
 
   showFilterButtons() {
-    this.isFilteringCriteriaBlock = !this.isFilteringCriteriaBlock;
+    this.isFilterShow = !this.isFilterShow;
   }
 
   printText(text: string) {

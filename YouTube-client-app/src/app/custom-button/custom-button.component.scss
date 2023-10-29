@@ -1,8 +1,8 @@
 .button.mdc-button {
-  background-color: rgba(47, 128, 237, 1);
+  background-color: var(--button-color);
   min-width: 120px;
   height: 32px;
-  color: rgba(255, 255, 255, 1);
+  color: $text-color;
   font-family: Roboto;
   font-weight: 400;
   font-size: 12px;

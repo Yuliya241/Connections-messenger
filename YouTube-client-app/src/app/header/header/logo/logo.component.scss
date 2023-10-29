@@ -1,7 +1,7 @@
 .button.mdc-button {
   min-width: 50px;
   margin: 15px 0;
-  background-color: rgba(47, 128, 237, 1);
+  background-color: var(--button-color);
 }
 
 .logo.mat-icon {

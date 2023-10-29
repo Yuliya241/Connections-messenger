@@ -7,14 +7,14 @@ import { BorderColors } from '../enums/enums';
 })
 
 export class CardBorderDirective implements OnInit {
-  @Input('appCardBorder') publishedAt!: string;
+  @Input('appCardBorder') publishedAt = '';
 
   constructor(private renderer: Renderer2, private element: ElementRef) { }
 
   ngOnInit(): void {
-    const oneDayrInMilliseconds = 24 * 60 * 60 * 1000;
+    const oneDayInMilliseconds = 24 * 60 * 60 * 1000;
     const days = Math.floor(new Date().getTime() - new Date(this.publishedAt).getTime())
-      / oneDayrInMilliseconds;
+      / oneDayInMilliseconds;
     if (days < 7) {
       this.renderer.addClass(this.element.nativeElement, BorderColors.BLUE);
     } else if (days >= 7 && days < 31) {
