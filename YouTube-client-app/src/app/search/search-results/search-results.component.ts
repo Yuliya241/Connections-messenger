@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
 import { Item } from 'src/app/models/search-item.model';
-import response from '../../data/response.json';
 
 @Component({
   selector: 'app-search-results',
@@ -8,5 +8,5 @@ import response from '../../data/response.json';
   styleUrls: ['./search-results.component.scss'],
 })
 export class SearchResultsComponent {
-  items: Item[] = response.items;
+  @Input() items: Item[] = [];
 }

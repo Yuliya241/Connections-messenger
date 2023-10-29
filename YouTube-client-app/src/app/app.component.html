@@ -3,10 +3,11 @@
     <app-header class="header" (showResults)="showSearchResults()"
       (showFilteringCriteria)="showFilterButtons()"></app-header>
     <div class="sorting-block" *ngIf="isFilteringCriteriaBlock">
-      <app-sorting-buttons></app-sorting-buttons>
-      <app-filter-input></app-filter-input>
+      <app-sorting-buttons (sortView)="orderByView()" (sortDate)="orderByDate()"></app-sorting-buttons>
+      <app-filter-input (changeText)="printText($event)"></app-filter-input>
     </div>
   </div>
-  <app-search-results *ngIf="isSearchResults"></app-search-results>
-  <router-outlet></router-outlet>
+  <app-search-results *ngIf="items.length"
+    [items]="items | filter : text | orderByDate: dateOrder | orderByViews: viewsOrder"></app-search-results>
 </div>
+<router-outlet></router-outlet>

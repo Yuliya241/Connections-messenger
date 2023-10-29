@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-filter-input',
@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./filter-input.component.scss'],
 })
 export class FilterInputComponent {
+  @Output() changeText = new EventEmitter<string>();
 
+  text = '';
+
+  handleTextChange() {
+    this.changeText.emit(this.text);
+  }
 }

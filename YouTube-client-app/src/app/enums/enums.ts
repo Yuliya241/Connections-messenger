@@ -4,3 +4,10 @@ export const enum BorderColors {
   YELLOW = 'yellow-color',
   RED = 'red-color',
 }
+
+export const enum Sort {
+  ASC = 'asc',
+  DESC = 'desc',
+}
+
+export type SortDirections = 'asc' | 'desc' | undefined;

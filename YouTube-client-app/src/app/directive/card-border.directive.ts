@@ -1,7 +1,6 @@
-import {
-  Directive, ElementRef, Input, OnInit, Renderer2,
-} from '@angular/core';
-import { BorderColors } from '../enums/border-colors';
+import { Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
+
+import { BorderColors } from '../enums/enums';
 
 @Directive({
   selector: '[appCardBorder]',
@@ -13,7 +12,7 @@ export class CardBorderDirective implements OnInit {
   constructor(private renderer: Renderer2, private element: ElementRef) { }
 
   ngOnInit(): void {
-    const oneDayrInMilliseconds = 24 * 3600 * 1000;
+    const oneDayrInMilliseconds = 24 * 60 * 60 * 1000;
     const days = Math.floor(new Date().getTime() - new Date(this.publishedAt).getTime())
       / oneDayrInMilliseconds;
     if (days < 7) {
