@@ -1,0 +1,4 @@
+<div class="sorting-block" *ngIf="filterShow">
+  <app-sorting-buttons (sortView)="orderByView()" (sortDate)="orderByDate()"></app-sorting-buttons>
+  <app-filter-input (changeText)="printText($event)"></app-filter-input>
+</div>

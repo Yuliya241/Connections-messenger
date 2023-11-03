@@ -1,12 +1,7 @@
 <div class="wrapper">
   <div class="colored-block">
-    <app-header class="header" (showResults)="showSearchResults()" (showFilterBlock)="showFilterButtons()"></app-header>
-    <div class="sorting-block" *ngIf="isFilterShow">
-      <app-sorting-buttons (sortView)="orderByView()" (sortDate)="orderByDate()"></app-sorting-buttons>
-      <app-filter-input (changeText)="printText($event)"></app-filter-input>
-    </div>
+    <app-header class="header"></app-header>
+    <app-filter-block></app-filter-block>
   </div>
-  <app-search-results *ngIf="items.length"
-    [items]="items | filter : text | orderByDate: dateOrder | orderByViews: viewsOrder"></app-search-results>
 </div>
 <router-outlet></router-outlet>
