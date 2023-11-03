@@ -1,8 +1,15 @@
 .statistics-block {
   display: flex;
   justify-content: space-between;
-  padding: 10px 0;
-  width: 100%;
+  margin: 0 auto;
+  width: 250px;
+}
+
+.information-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 15px;
 }
 
 .counts-block {
@@ -25,30 +32,48 @@ p {
   width: auto;
 }
 
+.description {
+  color: var(--grey-color);
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14.06px;
+}
+
+.description-title {
+  color: var(--black-color);
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16.41px;
+}
+
+.text-block {
+  row-gap: 7px;
+  display: flex;
+  flex-direction: column;
+}
+
+.date {
+  color: var(--grey-color);
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 11.72px;
+  padding-bottom: 10px;
+}
+
 .title {
-  color: rgba(79, 79, 79, 1);
+  color: var(--black-color);
   font-family: Roboto;
   font-weight: 700;
   font-size: 18px;
   line-height: 23.44px;
-  text-align: right;
   margin: 0;
-  max-width: 230px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: pre;
-  word-wrap: break-word;
-  cursor: pointer;
-}
-
-.title:hover {
-  overflow: visible;
-  text-overflow: inherit;
-  white-space: normal;
 }
 
 .count {
-  color: rgba(0, 0, 0, 1);
+  color: var(--black-color);
   font-family: Roboto;
   font-weight: 400;
   font-size: 11px;
@@ -57,29 +82,34 @@ p {
 }
 
 .card.mat-mdc-card {
-  background-color: rgba(229, 229, 229, 1);
-  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
-  width: 1168px;
-  min-height: 461px;
+  background-color: var(--block-color);
+  box-shadow: 5px 10px 10px 0px rgba(47, 128, 237, 0.25);
   padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.wrapperr {
+  display: flex;
+}
+
+.wrapper {
+  display: flex;
+  width: 1100px;
+  padding: 70px 0 100px 0;
   margin: 0 auto;
 }
 
-.blue-color {
-  border-bottom: 5px solid blue;
+.button.mdc-button {
+  min-width: 32px;
+  height: 32px;
+  padding: 0 0 0 6px;
+  background-color: rgba(39, 174, 96, 1);
+  box-shadow: -2px 2px 4px 0px rgba(39, 174, 96, 0.25);
 }
 
-.green-color {
-  border-bottom: 5px solid green;
-}
-
-.yellow-color {
-  border-bottom: 5px solid yellow;
-}
-
-.red-color {
-  border-bottom: 5px solid red;
+.arrow.mat-icon {
+  margin: 0;
+  color: rgba(242, 242, 242, 1);
 }

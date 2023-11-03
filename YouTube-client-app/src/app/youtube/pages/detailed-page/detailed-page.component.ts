@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Item } from '../../models/search-item.model';
 import { YoutubeService } from '../../services/youtube.service';
@@ -13,10 +14,14 @@ export class DetailedPageComponent implements OnInit {
 
   item?: Item;
 
-  constructor(readonly youtubeService: YoutubeService) { }
+  constructor(readonly youtubeService: YoutubeService, private router: Router) { }
 
   ngOnInit() {
     if (!this.id) return;
     this.item = this.youtubeService.getItemById(this.id);
+  }
+
+  back() {
+    this.router.navigate(['/main']);
   }
 }

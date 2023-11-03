@@ -1,22 +1,37 @@
-<mat-card class="card" [appCardBorder]="item.snippet.publishedAt" *ngIf="item">
-  <img mat-card-image src={{item.snippet.thumbnails.maxres.url}} alt={{item.snippet.title}}>
-  <div class="statistics-block">
-    <div class="counts-block">
-      <mat-icon class="icon">visibility</mat-icon>
-      <p class="count">{{ item.statistics.viewCount }}</p>
+<div class="wrapper">
+  <button mat-raised-button color="primary" class="button" type="button" (click)="back()">
+    <mat-icon class="arrow">arrow_back_ios</mat-icon>
+  </button>
+  <mat-card class="card" [appCardBorder]="item.snippet.publishedAt" *ngIf="item">
+    <div class="wrapperr">
+      <img mat-card-image src={{item.snippet.thumbnails.standard.url}} alt={{item.snippet.title}}>
+      <div class="information-block">
+        <div class="text-block">
+          <h4 class="title">{{item.snippet.title}}</h4>
+          <p class="date">{{item.snippet.publishedAt}}</p>
+          <p class="description-title">Description:<br>
+            <span class="description">{{item.snippet.description}}</span>
+          </p>
+        </div>
+        <div class="statistics-block">
+          <div class="counts-block">
+            <mat-icon class="icon">visibility</mat-icon>
+            <p class="count">{{ item.statistics.viewCount }}</p>
+          </div>
+          <div class="counts-block">
+            <mat-icon class="icon">thumb_up</mat-icon>
+            <p class="count">{{ item.statistics.likeCount }}</p>
+          </div>
+          <div class="counts-block">
+            <mat-icon class="icon">thumb_down</mat-icon>
+            <p class="count">{{ item.statistics.dislikeCount }}</p>
+          </div>
+          <div class="counts-block">
+            <mat-icon class="icon">mode_comment</mat-icon>
+            <p class="count">{{ item.statistics.commentCount }}</p>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="counts-block">
-      <mat-icon class="icon">thumb_up</mat-icon>
-      <p class="count">{{ item.statistics.likeCount }}</p>
-    </div>
-    <div class="counts-block">
-      <mat-icon class="icon">thumb_down</mat-icon>
-      <p class="count">{{ item.statistics.dislikeCount }}</p>
-    </div>
-    <div class="counts-block">
-      <mat-icon class="icon">mode_comment</mat-icon>
-      <p class="count">{{ item.statistics.commentCount }}</p>
-    </div>
-  </div>
-  <h4 class="title">{{item.snippet.title}}</h4>
-</mat-card>
+  </mat-card>
+</div>

@@ -13,4 +13,22 @@ body {
   --text-color: rgba(255, 255, 255, 1);
   --title-color: rgba(79, 79, 79, 1);
   --grey-color: rgba(130, 130, 130, 1);
+  --block-color: rgba(229, 229, 229, 1);
+  --black-color: rgba(0, 0, 0, 1);
+
+  .blue-color {
+    border-bottom: 5px solid blue;
+  }
+
+  .green-color {
+    border-bottom: 5px solid green;
+  }
+
+  .yellow-color {
+    border-bottom: 5px solid yellow;
+  }
+
+  .red-color {
+    border-bottom: 5px solid red;
+  }
 }

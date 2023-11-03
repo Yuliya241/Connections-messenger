@@ -8,6 +8,6 @@
 }
 
 .colored-block {
-  background-color: rgba(229, 229, 229, 1);
+  background-color: var(--block-color);
   width: 100%;
 }
