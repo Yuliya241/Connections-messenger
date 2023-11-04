@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -24,7 +23,6 @@ import { OrderByViewsPipe } from './pipes/order-by-views.pipe';
     MatButtonModule,
     MatCardModule,
     MatIconModule,
-    FormsModule,
   ],
   exports: [
     FilterPipe,
@@ -35,7 +33,6 @@ import { OrderByViewsPipe } from './pipes/order-by-views.pipe';
     MatButtonModule,
     MatIconModule,
     MatCardModule,
-    FormsModule,
   ],
 })
 export class SharedModule { }
