@@ -16,13 +16,13 @@
   row-gap: 10px;
 }
 
-.field {
+.input-field {
   display: flex;
   flex-direction: column;
 }
 
 .title {
-  color: rgba(0, 0, 0, 1);
+  color: var(--black-color);
   font-family: Roboto;
   font-weight: 700;
   font-size: 20px;
