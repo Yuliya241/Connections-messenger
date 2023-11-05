@@ -1,5 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
+import { AuthService } from 'src/app/auth/services/auth.service';
 import { YoutubeService } from 'src/app/youtube/services/youtube.service';
 
 import { LoginComponent } from './login/login.component';
@@ -10,18 +12,23 @@ import { SettingsButtonComponent } from './settings-button/settings-button.compo
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [LogoComponent, SearchInputComponent, SettingsButtonComponent, LoginComponent],
+  imports: [
+    LogoComponent, SearchInputComponent, SettingsButtonComponent, LoginComponent, CommonModule],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  constructor(readonly youtubeService: YoutubeService) { }
+  constructor(readonly youtubeService: YoutubeService, private authService: AuthService) { }
 
-  searchResults() {
+  searchResults(): void {
     this.youtubeService.showResults();
   }
 
-  showFilterButtons() {
+  showFilterButtons(): void {
     this.youtubeService.showFilterBlock();
+  }
+
+  logoutForm(): void {
+    this.authService.logout();
   }
 }

@@ -6,10 +6,16 @@
         <label class="label" for="login">login</label>
         <input class="input" id="login" type="text" formControlName="login">
       </div>
+      <small *ngIf="login.invalid && (login.dirty || login.touched)" class="error-message">
+        <div *ngIf="login.errors?.['required']">Login is required</div>
+      </small>
       <div class="input-field">
         <label class="label" for="password">password</label>
         <input class="input" id="password" type="password" formControlName="password">
       </div>
+      <small *ngIf="password.invalid && (password.dirty || password.touched)" class="error-message">
+        <div *ngIf="password.errors?.['required']">Password is required</div>
+      </small>
     </form>
     <button mat-raised-button color="primary" class="button" type="submit">login</button>
   </div>

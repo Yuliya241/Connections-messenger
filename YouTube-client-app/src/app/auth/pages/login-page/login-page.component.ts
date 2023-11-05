@@ -20,6 +20,14 @@ export class LoginPageComponent implements OnInit {
     });
   }
 
+  get login() {
+    return this.formLogin.controls['login'];
+  }
+
+  get password() {
+    return this.formLogin.controls['password'];
+  }
+
   onSubmit() {
     if (this.formLogin.valid) {
       this.authService.login();
