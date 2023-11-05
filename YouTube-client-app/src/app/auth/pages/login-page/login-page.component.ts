@@ -28,7 +28,8 @@ export class LoginPageComponent implements OnInit {
     return this.formLogin.controls['password'];
   }
 
-  onSubmit() {
+  onSubmit(event: Event) {
+    event.preventDefault();
     if (this.formLogin.valid) {
       this.authService.login();
     }
