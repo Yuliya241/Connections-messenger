@@ -14,7 +14,7 @@ export class DetailedPageComponent implements OnInit {
 
   item?: Item;
 
-  constructor(readonly youtubeService: YoutubeService, private router: Router) { }
+  constructor(private readonly youtubeService: YoutubeService, private router: Router) { }
 
   ngOnInit() {
     if (!this.id) return;

@@ -8,7 +8,7 @@ import { YoutubeService } from 'src/app/youtube/services/youtube.service';
   styleUrls: ['./filter-block.component.scss'],
 })
 export class FilterBlockComponent {
-  constructor(readonly youtubeService: YoutubeService) { }
+  constructor(private youtubeService: YoutubeService) { }
 
   get filterShow() {
     return this.youtubeService.isFilterShow;

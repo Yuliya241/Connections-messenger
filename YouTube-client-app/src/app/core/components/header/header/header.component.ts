@@ -18,7 +18,7 @@ import { SettingsButtonComponent } from './settings-button/settings-button.compo
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  constructor(readonly youtubeService: YoutubeService, private authService: AuthService) { }
+  constructor(private youtubeService: YoutubeService, private authService: AuthService) { }
 
   searchResults(): void {
     this.youtubeService.showResults();
