@@ -10,18 +10,20 @@ import { YoutubeService } from '../../services/youtube.service';
   styleUrls: ['./detailed-page.component.scss'],
 })
 export class DetailedPageComponent implements OnInit {
-  @Input() id?: string;
+  @Input() id = '';
 
   item?: Item;
 
   constructor(private readonly youtubeService: YoutubeService, private router: Router) { }
 
   ngOnInit() {
-    if (!this.id) return;
     this.item = this.youtubeService.getItemById(this.id);
+    if (!this.item) {
+      this.router.navigate(['not-found']);
+    }
   }
 
   back() {
-    this.router.navigate(['/main']);
+    this.router.navigate(['main']);
   }
 }
