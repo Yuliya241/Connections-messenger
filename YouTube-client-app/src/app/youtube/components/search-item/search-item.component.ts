@@ -12,9 +12,9 @@ import { YoutubeService } from '../../services/youtube.service';
 })
 
 export class SearchItemComponent implements OnInit {
-  @Input() item!: Item;
+  @Input() item: Item | undefined;
 
-  id: string | null = null;
+  id = '';
 
   constructor(readonly youtubeService: YoutubeService, private route: ActivatedRoute) { }
 

@@ -8,5 +8,5 @@ import { Item } from 'src/app/youtube/models/search-item.model';
   styleUrls: ['./custom-button.component.scss'],
 })
 export class CustomButtonComponent {
-  @Input() item!: Item;
+  @Input() item: Item | undefined;
 }

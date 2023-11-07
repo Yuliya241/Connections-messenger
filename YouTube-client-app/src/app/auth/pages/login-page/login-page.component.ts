@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 
 import { AuthService } from '../../services/auth.service';
 
@@ -8,27 +8,23 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss'],
 })
-export class LoginPageComponent implements OnInit {
-  public formLogin!: FormGroup;
+export class LoginPageComponent {
+  formLogin = this.fb.group({
+    login: ['', Validators.required],
+    password: ['', Validators.required],
+  });
 
   constructor(private fb: FormBuilder, private readonly authService: AuthService) { }
 
-  ngOnInit(): void {
-    this.formLogin = this.fb.group({
-      login: ['', Validators.required],
-      password: ['', Validators.required],
-    });
-  }
-
   get login() {
-    return this.formLogin.controls['login'];
+    return this.formLogin.controls.login;
   }
 
   get password() {
-    return this.formLogin.controls['password'];
+    return this.formLogin.controls.password;
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.formLogin.valid) {
       this.authService.login();
     }
