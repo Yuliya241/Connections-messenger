@@ -31,11 +31,22 @@
       </small>
       <div class="input-field">
         <label class="label" for="link-video">Link video</label>
-        <input class="input" id="link-video" type="text" formControlName="linkVideo"
-          [class.invalid]="linkVideo.invalid && (linkVideo.dirty || linkVideo.touched || isSubmitted)">
+        <input class="input" id="link-video" type="text" formControlName="linkToVideo"
+          [class.invalid]="linkToVideo.invalid && (linkToVideo.dirty || linkToVideo.touched || isSubmitted)">
       </div>
-      <small *ngIf="linkVideo.invalid && (linkVideo.dirty || linkVideo.touched || isSubmitted)" class="error-message">
-        <div *ngIf="linkVideo.errors?.['required']">Please enter a link to the video</div>
+      <small *ngIf="linkToVideo.invalid && (linkToVideo.dirty || linkToVideo.touched || isSubmitted)"
+        class="error-message">
+        <div *ngIf="linkToVideo.errors?.['required']">Please enter a link to the video</div>
+      </small>
+      <div class="input-field">
+        <label class="label" for="link-video">Creation date</label>
+        <input class="input" id="link-video" type="date" formControlName="creationDate"
+          [class.invalid]="creationDate.invalid && (creationDate.dirty || creationDate.touched || isSubmitted)">
+      </div>
+      <small *ngIf="creationDate.invalid && (creationDate.dirty || creationDate.touched || isSubmitted)"
+        class="error-message">
+        <div *ngIf="creationDate.errors?.['required']">Please enter a creation date</div>
+        <div *ngIf="creationDate.errors?.['notInFuture']">The date is invalid</div>
       </small>
     </form>
     <button mat-raised-button color="primary" class="button">Create card</button>

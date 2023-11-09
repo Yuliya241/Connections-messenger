@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
+import { dateValidator } from '../../date-validator';
+
 @Component({
   selector: 'app-admin-page',
   templateUrl: './admin-page.component.html',
@@ -13,7 +15,8 @@ export class AdminPageComponent {
     title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
     description: ['', Validators.maxLength(255)],
     image: ['', Validators.required],
-    linkVideo: ['', Validators.required],
+    linkToVideo: ['', Validators.required],
+    creationDate: ['', [Validators.required, dateValidator()]],
   });
 
   constructor(private fb: FormBuilder) { }
@@ -30,8 +33,12 @@ export class AdminPageComponent {
     return this.formAdmin.controls.image;
   }
 
-  get linkVideo() {
-    return this.formAdmin.controls.linkVideo;
+  get creationDate() {
+    return this.formAdmin.controls.creationDate;
+  }
+
+  get linkToVideo() {
+    return this.formAdmin.controls.linkToVideo;
   }
 
   onSubmit(): void {
