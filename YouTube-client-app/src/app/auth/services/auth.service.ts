@@ -16,4 +16,8 @@ export class AuthService {
     localStorage.removeItem('login');
     this.router.navigate(['login']);
   }
+
+  goToAdmin(): void {
+    this.router.navigateByUrl('admin');
+  }
 }

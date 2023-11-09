@@ -31,4 +31,8 @@ export class HeaderComponent {
   logoutForm(): void {
     this.authService.logout();
   }
+
+  toAdmin() {
+    this.authService.goToAdmin();
+  }
 }

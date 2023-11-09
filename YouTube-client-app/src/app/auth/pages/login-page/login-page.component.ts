@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
+import { passwordStrengthValidator } from '../../password-validator';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -9,9 +10,11 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent {
+  isSubmitted = false;
+
   formLogin = this.fb.group({
-    login: ['', Validators.required],
-    password: ['', Validators.required],
+    login: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, passwordStrengthValidator()]],
   });
 
   constructor(private fb: FormBuilder, private readonly authService: AuthService) { }
@@ -28,5 +31,6 @@ export class LoginPageComponent {
     if (this.formLogin.valid) {
       this.authService.login();
     }
+    this.isSubmitted = true;
   }
 }

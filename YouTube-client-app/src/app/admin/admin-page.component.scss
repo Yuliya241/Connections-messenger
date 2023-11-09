@@ -2,12 +2,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 344px;
-  height: 248px;
+  width: 432px;
+  height: 493px;
   background-color: var(--card-color);
-  margin: 0 auto;
-  border-radius: 5px;
-  margin-top: 100px;
+  margin: 100px auto;
+  border-radius: 6.29px;
 }
 
 .form-wrapper {
@@ -19,22 +18,24 @@
 .input-field {
   display: flex;
   flex-direction: column;
+  margin-bottom: 10px;
 }
 
-.title {
+.form-title {
   color: var(--black-color);
   font-family: Roboto;
   font-weight: 700;
-  font-size: 20px;
-  line-height: 21.09px;
+  font-size: 22.64px;
+  line-height: 26.54px;
+  margin-bottom: 15px;
 }
 
 .label {
   color: var(--grey-color);
   font-family: Roboto;
   font-weight: 400;
-  font-size: 12px;
-  line-height: 11.72px;
+  font-size: 12.58px;
+  line-height: 14.74px;
   margin: 5px 0;
 }
 
@@ -43,8 +44,8 @@
   border: 0;
   padding: 0 8px;
   background-color: rgba(224, 224, 224, 1);
-  width: 304px;
-  height: 37px;
+  width: 382px;
+  height: 44px;
 }
 
 .button.mdc-button {
