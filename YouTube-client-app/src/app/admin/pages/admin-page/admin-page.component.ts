@@ -13,11 +13,15 @@ export class AdminPageComponent {
 
   count = 1;
 
+  urlImageregex = /(https:\/\/)([^\s(["<,>/]*)(\/)[^\s[",><]*(.png|.jpg)(\?[^\s[",><]*)?/;
+
+  urlYoutuberegex = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})?$/;
+
   formAdmin = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
     description: ['', Validators.maxLength(255)],
-    image: ['', Validators.required],
-    linkToVideo: ['', Validators.required],
+    image: ['', [Validators.required, Validators.pattern(this.urlImageregex)]],
+    linkToVideo: ['', [Validators.required, Validators.pattern(this.urlYoutuberegex)]],
     creationDate: ['', [Validators.required, dateValidator()]],
     tags: this.fb.array([this.createTagsFormGroup()]),
   });

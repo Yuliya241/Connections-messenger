@@ -14,7 +14,13 @@ export class LoginPageComponent {
 
   formLogin = this.fb.group({
     login: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, passwordStrengthValidator()]],
+    password: ['', Validators.compose([
+      Validators.required, passwordStrengthValidator(/\d/, { hasNumber: true }),
+      passwordStrengthValidator(/[A-Z]/, { hasUpperCase: true }),
+      passwordStrengthValidator(/[a-z]/, { hasLowerCase: true }),
+      passwordStrengthValidator(/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/, { hasSpecialCharacters: true }),
+      Validators.minLength(8)]),
+    ],
   });
 
   constructor(private fb: FormBuilder, private readonly authService: AuthService) { }

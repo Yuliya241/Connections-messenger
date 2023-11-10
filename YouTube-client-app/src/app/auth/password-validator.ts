@@ -1,6 +1,6 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
-export function passwordStrengthValidator(): ValidatorFn {
+export function passwordStrengthValidator(regex: RegExp, error: ValidationErrors): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const value: string = control.value || '';
 
@@ -8,16 +8,8 @@ export function passwordStrengthValidator(): ValidatorFn {
       return null;
     }
 
-    const upperCaseCharacters = /[A-Z]+/.test(value);
+    const valid = regex.test(control.value);
 
-    const lowerCaseCharacters = /[a-z]+/.test(value);
-
-    const numbers = /[0-9]+/.test(value);
-
-    const specialCharacter = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(value);
-
-    const passwordValid = upperCaseCharacters && lowerCaseCharacters && numbers && specialCharacter;
-
-    return !passwordValid ? { passwordStrength: true } : null;
+    return valid ? null : error;
   };
 }
