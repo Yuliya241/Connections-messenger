@@ -12,7 +12,6 @@
 .form-wrapper {
   flex-direction: column;
   display: flex;
-  row-gap: 10px;
 }
 
 .input-field {
@@ -65,6 +64,24 @@
   color: red;
 }
 
-.invalid {
+.invalid,
+.error {
   border: 1px solid red;
+}
+
+.tag-buttons {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 5px;
+  margin: 10px 0;
+}
+
+.input-tag {
+  outline: 0;
+  border: 0;
+  padding: 0 8px;
+  background-color: rgba(224, 224, 224, 1);
+  width: 382px;
+  height: 44px;
+  margin: 5px 0;
 }

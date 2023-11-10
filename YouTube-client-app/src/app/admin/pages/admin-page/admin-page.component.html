@@ -1,54 +1,69 @@
 <form class="wrapper" [formGroup]="formAdmin" (ngSubmit)="onSubmit()">
   <div class="form-wrapper">
     <span class="form-title">Create new card</span>
-    <form>
-      <div class="input-field">
-        <label class="label" for="title">Title</label>
-        <input class="input" id="title" type="text" formControlName="title"
-          [class.invalid]="title.invalid && (title.dirty || title.touched || isSubmitted)">
+    <div class="input-field">
+      <label class="label" for="title">Title</label>
+      <input class="input" id="title" type="text" formControlName="title"
+        [class.invalid]="title.invalid && (title.dirty || title.touched || isSubmitted)">
+    </div>
+    <small *ngIf="title.invalid && (title.dirty || title.touched || isSubmitted)" class="error-message">
+      <div *ngIf="title.errors?.['required']">Please enter a title</div>
+      <div *ngIf="title.errors?.['minlength']">The title is too short</div>
+      <div *ngIf="title.errors?.['maxlength']">The title is too long</div>
+    </small>
+    <div class="input-field">
+      <label class="label" for="description">Description</label>
+      <input class="input" id="description" type="text" formControlName="description"
+        [class.invalid]="description.invalid && (description.dirty || description.touched || isSubmitted)">
+    </div>
+    <small *ngIf="description.invalid && (description.dirty || description.touched || isSubmitted)"
+      class="error-message">
+      <div *ngIf="description.errors?.['maxlength']">The description is too long</div>
+    </small>
+    <div class="input-field">
+      <label class="label" for="img">Img</label>
+      <input class="input" id="img" type="text" formControlName="image"
+        [class.invalid]="image.invalid && (image.dirty || image.touched || isSubmitted)">
+    </div>
+    <small *ngIf="image.invalid && (image.dirty || image.touched || isSubmitted)" class="error-message">
+      <div *ngIf="image.errors?.['required']">Please enter a link to the image</div>
+    </small>
+    <div class="input-field">
+      <label class="label" for="link-video">Link video</label>
+      <input class="input" id="link-video" type="text" formControlName="linkToVideo"
+        [class.invalid]="linkToVideo.invalid && (linkToVideo.dirty || linkToVideo.touched || isSubmitted)">
+    </div>
+    <small *ngIf="linkToVideo.invalid && (linkToVideo.dirty || linkToVideo.touched || isSubmitted)"
+      class="error-message">
+      <div *ngIf="linkToVideo.errors?.['required']">Please enter a link to the video</div>
+    </small>
+    <div class="input-field">
+      <label class="label" for="link-video">Creation date</label>
+      <input class="input" id="link-video" type="date" formControlName="creationDate"
+        [class.invalid]="creationDate.invalid && (creationDate.dirty || creationDate.touched || isSubmitted)">
+    </div>
+    <small *ngIf="creationDate.invalid && (creationDate.dirty || creationDate.touched || isSubmitted)"
+      class="error-message">
+      <div *ngIf="creationDate.errors?.['required']">Please enter a creation date</div>
+      <div *ngIf="creationDate.errors?.['notInFuture']">The date is invalid</div>
+    </small>
+    <div class="tag-buttons">
+      <button type="button" (click)="addTags()">Add</button>
+      <button type="button" (click)="resetAll()">Reset</button>
+    </div>
+    <div formArrayName="tags">
+      <div *ngFor="let tag of tagsControls; let i = index" [formGroupName]="i">
+        <div
+          [ngClass]="{ 'error': tagsControls[i].get('tag')?.invalid && (tagsControls[i].get('tag')?.dirty || tagsControls[i].get('tag')?.touched || isSubmitted)}">
+          <input class="input-tag" type="text" id="{{i}}" formControlName="tag" placeholder="Tag {{ i + 1 }}">
+        </div>
+        <small
+          *ngIf="tagsControls[i].get('tag')?.invalid && (tagsControls[i].get('tag')?.dirty || tagsControls[i].get('tag')?.touched || isSubmitted)"
+          class="error-message">
+          <div *ngIf="tagsControls[i].get('tag')?.errors?.['required']">Please enter a value</div>
+        </small>
       </div>
-      <small *ngIf="title.invalid && (title.dirty || title.touched || isSubmitted)" class="error-message">
-        <div *ngIf="title.errors?.['required']">Please enter a title</div>
-        <div *ngIf="title.errors?.['minlength']">The title is too short</div>
-        <div *ngIf="title.errors?.['maxlength']">The title is too long</div>
-      </small>
-      <div class="input-field">
-        <label class="label" for="description">Description</label>
-        <input class="input" id="description" type="text" formControlName="description"
-          [class.invalid]="description.invalid && (description.dirty || description.touched || isSubmitted)">
-      </div>
-      <small *ngIf="description.invalid && (description.dirty || description.touched || isSubmitted)"
-        class="error-message">
-        <div *ngIf="description.errors?.['maxlength']">The description is too long</div>
-      </small>
-      <div class="input-field">
-        <label class="label" for="img">Img</label>
-        <input class="input" id="img" type="text" formControlName="image"
-          [class.invalid]="image.invalid && (image.dirty || image.touched || isSubmitted)">
-      </div>
-      <small *ngIf="image.invalid && (image.dirty || image.touched || isSubmitted)" class="error-message">
-        <div *ngIf="image.errors?.['required']">Please enter a link to the image</div>
-      </small>
-      <div class="input-field">
-        <label class="label" for="link-video">Link video</label>
-        <input class="input" id="link-video" type="text" formControlName="linkToVideo"
-          [class.invalid]="linkToVideo.invalid && (linkToVideo.dirty || linkToVideo.touched || isSubmitted)">
-      </div>
-      <small *ngIf="linkToVideo.invalid && (linkToVideo.dirty || linkToVideo.touched || isSubmitted)"
-        class="error-message">
-        <div *ngIf="linkToVideo.errors?.['required']">Please enter a link to the video</div>
-      </small>
-      <div class="input-field">
-        <label class="label" for="link-video">Creation date</label>
-        <input class="input" id="link-video" type="date" formControlName="creationDate"
-          [class.invalid]="creationDate.invalid && (creationDate.dirty || creationDate.touched || isSubmitted)">
-      </div>
-      <small *ngIf="creationDate.invalid && (creationDate.dirty || creationDate.touched || isSubmitted)"
-        class="error-message">
-        <div *ngIf="creationDate.errors?.['required']">Please enter a creation date</div>
-        <div *ngIf="creationDate.errors?.['notInFuture']">The date is invalid</div>
-      </small>
-    </form>
+    </div>
     <button mat-raised-button color="primary" class="button">Create card</button>
   </div>
 </form>
