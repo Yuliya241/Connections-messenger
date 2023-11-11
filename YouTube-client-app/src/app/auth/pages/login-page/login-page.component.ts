@@ -33,9 +33,9 @@ export class LoginPageComponent {
     return this.formLogin.controls.password;
   }
 
-  onSubmit(): void {
+  public onSubmit(): void {
     if (this.formLogin.valid) {
-      this.authService.login();
+      this.authService.login({ login: this.formLogin.controls.login.value !== null ? this.formLogin.controls.login.value : '' });
     }
     this.isSubmitted = true;
   }

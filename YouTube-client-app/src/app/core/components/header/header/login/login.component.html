@@ -1,14 +1,9 @@
-<div class="wrapper" *ngIf="isLoggedIn(); else logout">
-  <p class="name">Your Name</p>
-  <button mat-raised-button color="primary" class="button" type="button">
+<div class="wrapper">
+  <p class="name">{{(authService.user$ | async)?.login}}</p>
+  <button *ngIf="!loginSubject" mat-raised-button color="primary" class="button" type="button">
     <mat-icon class="login">account_circle</mat-icon>
   </button>
+  <button *ngIf="loginSubject" mat-raised-button color="primary" class="button" type="button" (click)="logoutForm()">
+    <mat-icon class="login">input</mat-icon>
+  </button>
 </div>
-<ng-template #logout>
-  <div class="wrapper">
-    <p class="name">Logout</p>
-    <button mat-raised-button color="primary" class="button" type="button" (click)="logoutForm()">
-      <mat-icon class="login">account_circle</mat-icon>
-    </button>
-  </div>
-</ng-template>

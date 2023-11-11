@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
+import { BehaviorSubject } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
@@ -12,14 +13,20 @@ import { AuthService } from 'src/app/auth/services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
-  constructor(private authService: AuthService) { }
+export class LoginComponent implements OnInit {
+  public authService = inject(AuthService);
 
-  logoutForm() {
-    this.authService.logout();
+  private loginSubject$: BehaviorSubject<boolean> = this.authService.loginSubject$;
+
+  public loginSubject = false;
+
+  ngOnInit(): void {
+    this.loginSubject$.subscribe((loginSubject) => {
+      this.loginSubject = loginSubject;
+    });
   }
 
-  isLoggedIn(): boolean {
-    return !localStorage.getItem('login');
+  public logoutForm(): void {
+    this.authService.logout();
   }
 }
