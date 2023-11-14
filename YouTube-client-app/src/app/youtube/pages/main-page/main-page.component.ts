@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { Item } from 'src/app/youtube/models/search-item.model';
+import { debounceTime, filter, map, switchMap } from 'rxjs';
 
+import { VideoItem, VideoResponse } from '../../models/search-item.model';
+import { SearchVideosService } from '../../services/search-videos.service';
 import { YoutubeService } from '../../services/youtube.service';
 
 @Component({
@@ -9,10 +11,24 @@ import { YoutubeService } from '../../services/youtube.service';
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss'],
 })
-export class MainPageComponent {
-  data: Item[] = this.youtubeService.getData();
+export class MainPageComponent implements OnInit {
+  constructor(
+    private youtubeService: YoutubeService,
+    private searchVideosService: SearchVideosService,
+  ) { }
 
-  constructor(private readonly youtubeService: YoutubeService) { }
+  videos: VideoItem[] = [];
+
+  ngOnInit(): void {
+    this.searchVideosService.searchTerm$
+      .pipe(
+        filter((value: string) => value.length > 2),
+        debounceTime(300),
+        switchMap((searchTerm: string) => this.searchVideosService.searchVideo(searchTerm)),
+        map((item: VideoResponse) => item.items),
+      ).subscribe((res) => { this.videos = res; });
+    this.searchVideosService.video$.subscribe((res) => { this.videos = res; });
+  }
 
   get showResults() {
     return this.youtubeService.isShowResults;

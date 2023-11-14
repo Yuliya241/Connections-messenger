@@ -1,2 +1,2 @@
-<app-search-results *ngIf="showResults && data.length"
-  [items]="data | filter: text | orderByDate: dateOrder | orderByViews: viewsOrder"></app-search-results>
+<app-search-results *ngIf="videos; let items"
+  [items]="items | filter: text | orderByDate: dateOrder | orderByViews: viewsOrder"></app-search-results>

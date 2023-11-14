@@ -1,12 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { Item } from '../../youtube/models/search-item.model';
+import { VideoItem } from '../../youtube/models/search-item.model';
 
 @Pipe({
   name: 'filter',
 })
 export class FilterPipe implements PipeTransform {
-  transform(items: Item[], value: string): Item[] {
+  transform(items: VideoItem[], value: string): VideoItem[] {
     if (!value) {
       return items;
     }

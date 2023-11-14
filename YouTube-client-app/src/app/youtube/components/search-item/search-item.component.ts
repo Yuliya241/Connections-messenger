@@ -1,9 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Item } from 'src/app/youtube/models/search-item.model';
-
-import { YoutubeService } from '../../services/youtube.service';
+import { VideoItem } from 'src/app/youtube/models/search-item.model';
 
 @Component({
   selector: 'app-search-item',
@@ -12,11 +10,11 @@ import { YoutubeService } from '../../services/youtube.service';
 })
 
 export class SearchItemComponent implements OnInit {
-  @Input() item: Item | undefined;
+  @Input() item: VideoItem | undefined;
 
   id = '';
 
-  constructor(readonly youtubeService: YoutubeService, private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params.subscribe((params) => {

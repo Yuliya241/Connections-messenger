@@ -1,13 +1,14 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { Item } from '../../youtube/models/search-item.model';
+import { VideoItem } from 'src/app/youtube/models/search-item.model';
+
 import { Sort, SortDirections } from '../enums/enums';
 
 @Pipe({
   name: 'orderByViews',
 })
 export class OrderByViewsPipe implements PipeTransform {
-  transform(items: Item[], direction: SortDirections): Item[] {
+  transform(items: VideoItem[], direction: SortDirections): VideoItem[] {
     switch (direction) {
       case Sort.ASC:
         return items.sort((a, b) => {

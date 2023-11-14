@@ -2,33 +2,33 @@
   <button mat-raised-button color="primary" class="button" type="button" (click)="back()">
     <mat-icon class="arrow">arrow_back_ios</mat-icon>
   </button>
-  <mat-card class="card" [appCardBorder]="item.snippet.publishedAt" *ngIf="item">
+  <mat-card class="card" [appCardBorder]="data.snippet.publishedAt" *ngIf="item | async; let data">
     <div class="wrapperr">
-      <img mat-card-image src={{item.snippet.thumbnails.standard.url}} alt={{item.snippet.title}}>
+      <img mat-card-image src={{data.snippet.thumbnails.standard.url}} alt={{data.snippet.title}}>
       <div class="information-block">
         <div class="text-block">
-          <h4 class="title">{{item.snippet.title}}</h4>
-          <p class="date">{{item.snippet.publishedAt}}</p>
+          <h4 class="title">{{data.snippet.title}}</h4>
+          <p class="date">{{data.snippet.publishedAt}}</p>
           <p class="description-title">Description:<br>
-            <span class="description">{{item.snippet.description}}</span>
+            <span class="description">{{data.snippet.description}}</span>
           </p>
         </div>
         <div class="statistics-block">
           <div class="counts-block">
             <mat-icon class="icon">visibility</mat-icon>
-            <p class="count">{{ item.statistics.viewCount }}</p>
+            <p class="count">{{ data.statistics.viewCount }}</p>
           </div>
           <div class="counts-block">
             <mat-icon class="icon">thumb_up</mat-icon>
-            <p class="count">{{ item.statistics.likeCount }}</p>
+            <p class="count">{{ data.statistics.likeCount }}</p>
           </div>
           <div class="counts-block">
             <mat-icon class="icon">thumb_down</mat-icon>
-            <p class="count">{{ item.statistics.dislikeCount }}</p>
+            <p class="count">{{ data.statistics.dislikeCount }}</p>
           </div>
           <div class="counts-block">
             <mat-icon class="icon">mode_comment</mat-icon>
-            <p class="count">{{ item.statistics.commentCount }}</p>
+            <p class="count">{{ data.statistics.commentCount }}</p>
           </div>
         </div>
       </div>

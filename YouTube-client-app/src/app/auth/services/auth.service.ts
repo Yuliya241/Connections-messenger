@@ -14,23 +14,25 @@ export interface User {
 export class AuthService {
   public router = inject(Router);
 
-  public loginSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private loginSource: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  public userSubject$ = new BehaviorSubject({ login: '' });
+  public loginSubject$ = this.loginSource.asObservable();
 
-  public user$ = new BehaviorSubject<User | null>(null);
+  private userSource = new BehaviorSubject<User | null>(null);
+
+  public user$ = this.userSource.asObservable();
 
   public login(user: User): void {
     localStorage.setItem('login', 'true');
-    this.loginSubject$.next(true);
+    this.loginSource.next(true);
     this.router.navigate(['main']);
-    this.user$.next(user);
+    this.userSource.next(user);
   }
 
   public logout(): void {
     localStorage.removeItem('login');
-    this.loginSubject$.next(false);
-    this.user$.next({ login: '' });
+    this.loginSource.next(false);
+    this.userSource.next({ login: '' });
     this.router.navigate(['login']);
   }
 

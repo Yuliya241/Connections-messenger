@@ -1,17 +1,20 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-search-input',
   standalone: true,
-  imports: [MatButtonModule],
+  imports: [MatButtonModule, FormsModule],
   templateUrl: './search-input.component.html',
   styleUrls: ['./search-input.component.scss'],
 })
 export class SearchInputComponent {
-  @Output() showResults = new EventEmitter();
+  @Output() changeText = new EventEmitter<string>();
 
-  searchResults() {
-    this.showResults.emit();
+  video = '';
+
+  search() {
+    this.changeText.emit(this.video);
   }
 }

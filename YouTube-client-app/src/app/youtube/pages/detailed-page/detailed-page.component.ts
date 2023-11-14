@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Item } from '../../models/search-item.model';
-import { YoutubeService } from '../../services/youtube.service';
+import { Observable } from 'rxjs';
+
+import { VideoItem } from '../../models/search-item.model';
+import { SearchVideosService } from '../../services/search-videos.service';
 
 @Component({
   selector: 'app-detailed-page',
@@ -12,18 +14,24 @@ import { YoutubeService } from '../../services/youtube.service';
 export class DetailedPageComponent implements OnInit {
   @Input() id = '';
 
-  item?: Item;
+  @Input() keyword = '';
 
-  constructor(private readonly youtubeService: YoutubeService, private router: Router) { }
+  item?: Observable<VideoItem | undefined>;
 
-  ngOnInit() {
-    this.item = this.youtubeService.getItemById(this.id);
-    if (!this.item) {
+  constructor(
+    private router: Router,
+    private searchVideosService: SearchVideosService,
+  ) { }
+
+  ngOnInit(): void {
+    this.item = this.searchVideosService.searchVideoById(this.id);
+    if (!this
+      .item) {
       this.router.navigate(['not-found']);
     }
   }
 
-  back() {
-    this.router.navigate(['main']);
+  public back(): void {
+    this.router.navigateByUrl('/main');
   }
 }
