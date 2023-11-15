@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { BehaviorSubject, find, map, Subject, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, Subject, switchMap, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import { SearchResponse, VideoItem, VideoResponse } from '../models/search-item.model';
@@ -31,10 +31,7 @@ export class SearchVideosService {
       .pipe(
         switchMap((response: SearchResponse) => {
           const id: string = response.items.map((item) => item.id.videoId).join(',');
-          const params = new HttpParams()
-            .set('id', id)
-            .set('part', 'snippet,statistics');
-          return this.http.get<VideoResponse>(environment.apiVideoUrl, { params });
+          return this.searchVideoById(id);
         }),
         tap((response: VideoResponse) => this.videoSource.next(response.items)),
       );
@@ -44,12 +41,7 @@ export class SearchVideosService {
     const params = new HttpParams()
       .set('id', id)
       .set('part', 'snippet,statistics');
-    return this.http.get<VideoResponse>(environment.apiVideoUrl, { params })
-      .pipe(
-        map((response: VideoResponse) => response),
-        switchMap((response: VideoResponse) => response.items),
-        find((item) => item.id === id),
-      );
+    return this.http.get<VideoResponse>(environment.apiVideoUrl, { params });
   }
 
   public printInput(text: string) {

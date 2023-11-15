@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Observable } from 'rxjs';
+import { find, map, Observable, switchMap } from 'rxjs';
 
-import { VideoItem } from '../../models/search-item.model';
+import { VideoItem, VideoResponse } from '../../models/search-item.model';
 import { SearchVideosService } from '../../services/search-videos.service';
 
 @Component({
@@ -24,7 +24,12 @@ export class DetailedPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.item = this.searchVideosService.searchVideoById(this.id);
+    this.item = this.searchVideosService.searchVideoById(this.id)
+      .pipe(
+        map((response: VideoResponse) => response),
+        switchMap((response: VideoResponse) => response.items),
+        find((item) => item.id === this.id),
+      );
     if (!this
       .item) {
       this.router.navigate(['not-found']);

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { debounceTime, filter, map, switchMap } from 'rxjs';
 
@@ -12,12 +13,14 @@ import { YoutubeService } from '../../services/youtube.service';
   styleUrls: ['./main-page.component.scss'],
 })
 export class MainPageComponent implements OnInit {
+  private destroyRef = inject(DestroyRef);
+
+  videos: VideoItem[] = [];
+
   constructor(
     private youtubeService: YoutubeService,
     private searchVideosService: SearchVideosService,
   ) { }
-
-  videos: VideoItem[] = [];
 
   ngOnInit(): void {
     this.searchVideosService.searchTerm$
@@ -26,8 +29,11 @@ export class MainPageComponent implements OnInit {
         debounceTime(300),
         switchMap((searchTerm: string) => this.searchVideosService.searchVideo(searchTerm)),
         map((item: VideoResponse) => item.items),
+        takeUntilDestroyed(this.destroyRef),
       ).subscribe((res) => { this.videos = res; });
-    this.searchVideosService.video$.subscribe((res) => { this.videos = res; });
+
+    this.searchVideosService.video$.pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((res) => { this.videos = res; });
   }
 
   get showResults() {

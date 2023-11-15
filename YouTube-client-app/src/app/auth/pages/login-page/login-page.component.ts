@@ -36,6 +36,7 @@ export class LoginPageComponent {
   public onSubmit(): void {
     if (this.formLogin.valid) {
       this.authService.login({ login: this.formLogin.controls.login.value !== null ? this.formLogin.controls.login.value : '' });
+      localStorage.setItem('username', `${this.formLogin.value.login}`);
     }
     this.isSubmitted = true;
   }

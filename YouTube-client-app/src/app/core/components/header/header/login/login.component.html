@@ -1,9 +1,6 @@
 <div class="wrapper">
-  <p class="name">{{name}}</p>
-  <button *ngIf="!isLoggedIn" mat-raised-button color="primary" class="button" type="button">
-    <mat-icon class="login">account_circle</mat-icon>
-  </button>
-  <button *ngIf="isLoggedIn" mat-raised-button color="primary" class="button" type="button" (click)="logoutForm()">
-    <mat-icon class="login">input</mat-icon>
+  <p class="name">{{userName}}</p>
+  <button mat-raised-button color="primary" class="button" type="button" (click)="logoutForm()">
+    <mat-icon class="login">{{iconName}}</mat-icon>
   </button>
 </div>

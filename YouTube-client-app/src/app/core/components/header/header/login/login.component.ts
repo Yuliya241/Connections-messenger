@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
@@ -16,17 +17,34 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 export class LoginComponent implements OnInit {
   private authService = inject(AuthService);
 
+  private destroyRef = inject(DestroyRef);
+
   public router = inject(Router);
 
   public isLoggedIn = false;
 
-  name?: string | null = null;
+  userName?: string;
+
+  iconName = '';
 
   ngOnInit(): void {
-    this.authService.loginSubject$.subscribe((loginSubject) => {
-      this.isLoggedIn = loginSubject;
-    });
-    this.authService.user$.subscribe((user) => { this.name = user?.login; });
+    this.authService.loginSubject$.pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((loginSubject) => { this.isLoggedIn = loginSubject; });
+
+    this.authService.logout$.pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((buttonLogout) => { this.iconName = buttonLogout; });
+
+    this.authService.user$.pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((user) => { this.userName = user?.login; });
+
+    const userValue = localStorage.getItem('username');
+    const iconValue = localStorage.getItem('button');
+    if (userValue) {
+      this.userName = userValue;
+    }
+    if (iconValue) {
+      this.iconName = iconValue;
+    }
   }
 
   public logoutForm(): void {

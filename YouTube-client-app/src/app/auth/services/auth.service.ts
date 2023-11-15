@@ -22,16 +22,25 @@ export class AuthService {
 
   public user$ = this.userSource.asObservable();
 
+  private logoutSource = new BehaviorSubject<string>('account_circle');
+
+  public logout$ = this.logoutSource.asObservable();
+
   public login(user: User): void {
     localStorage.setItem('login', 'true');
+    localStorage.setItem('button', 'input');
     this.loginSource.next(true);
+    this.logoutSource.next('input');
     this.router.navigate(['main']);
     this.userSource.next(user);
   }
 
   public logout(): void {
     localStorage.removeItem('login');
+    localStorage.removeItem('username');
+    localStorage.removeItem('button');
     this.loginSource.next(false);
+    this.logoutSource.next('account_circle');
     this.userSource.next({ login: '' });
     this.router.navigate(['login']);
   }
