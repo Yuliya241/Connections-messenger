@@ -6,8 +6,6 @@ import { Sort, SortDirections } from 'src/app/shared/enums/enums';
   providedIn: 'root',
 })
 export class YoutubeService {
-  isShowResults = false;
-
   isFilterShow = false;
 
   searchTerm = '';
@@ -15,10 +13,6 @@ export class YoutubeService {
   dateOrder: SortDirections;
 
   viewsOrder: SortDirections;
-
-  public showResults(): void {
-    this.isShowResults = true;
-  }
 
   public showFilterBlock(): void {
     this.isFilterShow = !this.isFilterShow;

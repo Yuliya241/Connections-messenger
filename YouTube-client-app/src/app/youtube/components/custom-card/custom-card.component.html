@@ -1,0 +1,24 @@
+<mat-card class="card" [appCardBorder]="card.date" *ngIf="card">
+  <img mat-card-image src={{card.img}} alt={{card.title}}>
+  <div class="statistics-block">
+    <div class="counts-block">
+      <p class="field-name">Description:</p>
+      <p class="count">{{ card.description }}</p>
+    </div>
+    <div class="counts-block">
+      <p class="field-name">Date:</p>
+      <p class="count">{{ card.date }}</p>
+    </div>
+    <div>
+      <p class="field-name">Video:</p>
+      <p class="count-video">{{ card.video }}</p>
+    </div>
+  </div>
+  <h4 class="title">{{ card.title }}</h4>
+  <div class="block-buttons">
+    <app-custom-button [routerLink]="'custom/' + [card.id]" routerLinkActive="active">more...</app-custom-button>
+    <button class="button" type="button">
+      <mat-icon class="custom">delete_forever</mat-icon>
+    </button>
+  </div>
+</mat-card>

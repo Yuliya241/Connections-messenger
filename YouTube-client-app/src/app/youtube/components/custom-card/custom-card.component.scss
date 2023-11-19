@@ -1,8 +1,9 @@
 .statistics-block {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   padding: 10px 0;
   width: 100%;
+  gap: 5px;
 }
 
 .counts-block {
@@ -48,12 +49,20 @@ p {
 }
 
 .count {
-  color: rgba(0, 0, 0, 1);
+  color: var(--grey-color);
   font-family: Roboto;
   font-weight: 400;
   font-size: 11px;
   line-height: 11.72px;
   text-align: right;
+}
+
+.count-video {
+  color: var(--grey-color);
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 11.72px;
 }
 
 .card.mat-mdc-card {
@@ -73,7 +82,7 @@ p {
   background-color: transparent;
 }
 
-.favourite.mat-icon {
+.custom.mat-icon {
   margin: 0;
   font-size: 25px;
   cursor: pointer;
@@ -83,4 +92,12 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.field-name {
+  color: var(--black-color);
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16.41px;
 }

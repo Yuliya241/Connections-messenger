@@ -24,6 +24,10 @@ const routes: Routes = [
     loadChildren: () => import('./admin/admin-page.module').then((m) => m.AdminPageModule),
   },
   {
+    path: 'favorite',
+    loadChildren: () => import('./favorite/favorite.module').then((m) => m.FavoriteModule),
+  },
+  {
     path: 'not-found',
     component: PageNotFoundComponent,
   },

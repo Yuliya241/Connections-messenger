@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+
+import { createCustomCard } from 'src/app/redux/actions/videos.actions';
+import { SearchVideosService } from 'src/app/youtube/services/search-videos.service';
 
 import { dateValidator } from '../../date-validator';
 
@@ -18,15 +23,20 @@ export class AdminPageComponent {
   urlYoutuberegex = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})?$/;
 
   formAdmin = this.fb.group({
-    title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
-    description: ['', Validators.maxLength(255)],
-    image: ['', [Validators.required, Validators.pattern(this.urlImageregex)]],
-    linkToVideo: ['', [Validators.required, Validators.pattern(this.urlYoutuberegex)]],
-    creationDate: ['', [Validators.required, dateValidator()]],
+    title: ['', { nonNullable: true, validators: [Validators.required, Validators.minLength(3), Validators.maxLength(20)] }],
+    description: ['', { nonNullable: true, validators: Validators.maxLength(255) }],
+    img: ['', { nonNullable: true, validators: [Validators.required, Validators.pattern(this.urlImageregex)] }],
+    video: ['', { nonNullable: true, validators: [Validators.required, Validators.pattern(this.urlYoutuberegex)] }],
+    date: ['', { nonNullable: true, validators: [Validators.required, dateValidator()] }],
     tags: this.fb.array([this.createTagsFormGroup()]),
   });
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private readonly store: Store,
+    private router: Router,
+    private searchService: SearchVideosService,
+  ) { }
 
   createTagsFormGroup(): FormGroup {
     return this.fb.group({
@@ -73,18 +83,29 @@ export class AdminPageComponent {
   }
 
   get image() {
-    return this.formAdmin.controls.image;
+    return this.formAdmin.controls.img;
   }
 
   get creationDate() {
-    return this.formAdmin.controls.creationDate;
+    return this.formAdmin.controls.date;
   }
 
   get linkToVideo() {
-    return this.formAdmin.controls.linkToVideo;
+    return this.formAdmin.controls.video;
   }
 
   onSubmit(): void {
     this.isSubmitted = true;
+    const newCustomCard = {
+      id: `${Date.now()}`,
+      title: this.formAdmin.value.title || '',
+      description: this.formAdmin.value.description || '',
+      img: this.formAdmin.value.img || '',
+      video: this.formAdmin.value.video || '',
+      date: this.formAdmin.value.date || '',
+    };
+
+    this.store.dispatch(createCustomCard({ newCard: newCustomCard }));
+    this.router.navigate(['main']);
   }
 }

@@ -1,30 +1,26 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { BehaviorSubject, Subject, switchMap, tap } from 'rxjs';
+import { map, Subject, switchMap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-import { SearchResponse, VideoItem, VideoResponse } from '../models/search-item.model';
+import { SearchResponse, VideoResponse } from '../models/search-item.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SearchVideosService {
+  constructor(public http: HttpClient) { }
+
   private searchTerm = new Subject<string>();
 
   public searchTerm$ = this.searchTerm.asObservable();
-
-  private videoSource = new BehaviorSubject<VideoItem[]>([]);
-
-  public video$ = this.videoSource.asObservable();
-
-  constructor(public http: HttpClient) { }
 
   public searchVideo(keyword: string) {
     const urlParams = new HttpParams()
       .set('part', 'snippet')
       .set('type', 'video')
-      .set('maxResults', 10)
+      .set('maxResults', 20)
       .set('q', keyword);
 
     return this.http.get<SearchResponse>(environment.apiSearchUrl, { params: urlParams })
@@ -33,7 +29,7 @@ export class SearchVideosService {
           const id: string = response.items.map((item) => item.id.videoId).join(',');
           return this.searchVideoById(id);
         }),
-        tap((response: VideoResponse) => this.videoSource.next(response.items)),
+        map((response: VideoResponse) => response.items),
       );
   }
 
@@ -42,9 +38,5 @@ export class SearchVideosService {
       .set('id', id)
       .set('part', 'snippet,statistics');
     return this.http.get<VideoResponse>(environment.apiVideoUrl, { params });
-  }
-
-  public printInput(text: string) {
-    this.searchTerm.next(text);
   }
 }

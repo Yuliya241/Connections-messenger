@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { CustomDetailedPageComponent } from './pages/custom-detailed-page/custom-detailed-page.component';
 import { DetailedPageComponent } from './pages/detailed-page/detailed-page.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path: ':id',
     component: DetailedPageComponent,
+  },
+  {
+    path: 'custom/:id',
+    component: CustomDetailedPageComponent,
   },
 ];
 

@@ -39,7 +39,8 @@
         "@typescript-eslint/await-thenable": "error",
         "import/prefer-default-export": "off",
         "class-methods-use-this": "off",
-        "object-curly-newline": "off"
+        "object-curly-newline": "off",
+        "arrow-body-style": "off"
       }
     },
     {
@@ -51,6 +52,14 @@
         "plugin:@angular-eslint/template/accessibility"
       ],
       "rules": {}
+    },
+    {
+      "files": [
+        "*.ts"
+      ],
+      "extends": [
+        "plugin:@ngrx/recommended"
+      ]
     }
   ]
 }

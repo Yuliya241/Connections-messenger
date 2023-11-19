@@ -22,7 +22,7 @@
     </small>
     <div class="input-field">
       <label class="label" for="img">Img</label>
-      <input class="input" id="img" type="text" formControlName="image"
+      <input class="input" id="img" type="text" formControlName="img"
         [class.invalid]="image.invalid && (image.dirty || image.touched || isSubmitted)">
     </div>
     <small *ngIf="image.invalid && (image.dirty || image.touched || isSubmitted)" class="error-message">
@@ -31,7 +31,7 @@
     </small>
     <div class="input-field">
       <label class="label" for="link-video">Link video</label>
-      <input class="input" id="link-video" type="text" formControlName="linkToVideo"
+      <input class="input" id="link-video" type="text" formControlName="video"
         [class.invalid]="linkToVideo.invalid && (linkToVideo.dirty || linkToVideo.touched || isSubmitted)">
     </div>
     <small *ngIf="linkToVideo.invalid && (linkToVideo.dirty || linkToVideo.touched || isSubmitted)"
@@ -41,7 +41,7 @@
     </small>
     <div class="input-field">
       <label class="label" for="link-video">Creation date</label>
-      <input class="input" id="link-video" type="date" formControlName="creationDate"
+      <input class="input" id="link-video" type="date" formControlName="date"
         [class.invalid]="creationDate.invalid && (creationDate.dirty || creationDate.touched || isSubmitted)">
     </div>
     <small *ngIf="creationDate.invalid && (creationDate.dirty || creationDate.touched || isSubmitted)"

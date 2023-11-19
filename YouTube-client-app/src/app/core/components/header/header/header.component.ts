@@ -1,8 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { SearchVideosService } from 'src/app/youtube/services/search-videos.service';
+import { fetchVideos } from 'src/app/redux/actions/videos.actions';
 import { YoutubeService } from 'src/app/youtube/services/youtube.service';
 
 import { LoginComponent } from './login/login.component';
@@ -14,7 +17,13 @@ import { SettingsButtonComponent } from './settings-button/settings-button.compo
   selector: 'app-header',
   standalone: true,
   imports: [
-    LogoComponent, SearchInputComponent, SettingsButtonComponent, LoginComponent, CommonModule],
+    LogoComponent,
+    SearchInputComponent,
+    SettingsButtonComponent,
+    LoginComponent,
+    CommonModule,
+    MatButtonModule,
+  ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
@@ -22,11 +31,12 @@ export class HeaderComponent {
   constructor(
     private youtubeService: YoutubeService,
     private authService: AuthService,
-    private searchService: SearchVideosService,
+    private readonly store: Store,
+    private router: Router,
   ) { }
 
-  public searchVideos(event: string) {
-    this.searchService.printInput(event);
+  public searchVideos(text: string) {
+    this.store.dispatch(fetchVideos({ searchTerm: text }));
   }
 
   public showFilterButtons(): void {
@@ -39,5 +49,9 @@ export class HeaderComponent {
 
   public toAdmin(): void {
     this.authService.goToAdmin();
+  }
+
+  public toFavouritePage() {
+    this.router.navigateByUrl('favorite');
   }
 }

@@ -9,3 +9,10 @@
   align-items: center;
   max-width: 570px;
 }
+
+.button.mdc-button {
+  min-width: 24px;
+  height: 24px;
+  padding: 5px;
+  background-color: var(--button-color);
+}

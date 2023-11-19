@@ -1,10 +1,9 @@
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
 
-import { debounceTime, filter, map, switchMap } from 'rxjs';
+import { combineLatest, map } from 'rxjs';
+import { selectCards, selectVideos } from 'src/app/redux/selectors/videos.selector';
 
-import { VideoItem, VideoResponse } from '../../models/search-item.model';
-import { SearchVideosService } from '../../services/search-videos.service';
 import { YoutubeService } from '../../services/youtube.service';
 
 @Component({
@@ -12,33 +11,22 @@ import { YoutubeService } from '../../services/youtube.service';
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss'],
 })
-export class MainPageComponent implements OnInit {
-  private destroyRef = inject(DestroyRef);
+export class MainPageComponent {
+  private videos$ = this.store.select(selectVideos);
 
-  videos: VideoItem[] = [];
+  private cards$ = this.store.select(selectCards);
+
+  public searchResults$ = combineLatest([this.videos$, this.cards$]).pipe(map(([videos, cards]) => {
+    return {
+      videos: cards.length ? videos.slice(0, videos.length - cards.length) : videos,
+      cards,
+    };
+  }));
 
   constructor(
-    private youtubeService: YoutubeService,
-    private searchVideosService: SearchVideosService,
+    private readonly youtubeService: YoutubeService,
+    private readonly store: Store,
   ) { }
-
-  ngOnInit(): void {
-    this.searchVideosService.searchTerm$
-      .pipe(
-        filter((value: string) => value.length > 2),
-        debounceTime(300),
-        switchMap((searchTerm: string) => this.searchVideosService.searchVideo(searchTerm)),
-        map((item: VideoResponse) => item.items),
-        takeUntilDestroyed(this.destroyRef),
-      ).subscribe((res) => { this.videos = res; });
-
-    this.searchVideosService.video$.pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((res) => { this.videos = res; });
-  }
-
-  get showResults() {
-    return this.youtubeService.isShowResults;
-  }
 
   get viewsOrder() {
     return this.youtubeService.viewsOrder;

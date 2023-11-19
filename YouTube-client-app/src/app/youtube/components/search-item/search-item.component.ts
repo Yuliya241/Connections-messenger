@@ -16,9 +16,22 @@ export class SearchItemComponent implements OnInit {
 
   constructor(private route: ActivatedRoute) { }
 
+  isFavorite = false;
+
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.id = params['id'];
     });
+  }
+
+  color = 'black';
+
+  public addToFavorite() {
+    if (this.isFavorite) {
+      this.color = 'black';
+    } else {
+      this.color = 'red';
+    }
+    this.isFavorite = !this.isFavorite;
   }
 }

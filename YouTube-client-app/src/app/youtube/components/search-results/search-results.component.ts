@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 
+import { CustomCard } from 'src/app/redux/state.models';
 import { VideoItem } from 'src/app/youtube/models/search-item.model';
 
 @Component({
@@ -9,4 +10,6 @@ import { VideoItem } from 'src/app/youtube/models/search-item.model';
 })
 export class SearchResultsComponent {
   @Input() items: VideoItem[] = [];
+
+  @Input() cards: CustomCard[] = [];
 }
