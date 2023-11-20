@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { createCustomCard } from 'src/app/redux/actions/videos.actions';
-import { SearchVideosService } from 'src/app/youtube/services/search-videos.service';
 
 import { dateValidator } from '../../date-validator';
 
@@ -23,11 +22,11 @@ export class AdminPageComponent {
   urlYoutuberegex = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})?$/;
 
   formAdmin = this.fb.group({
-    title: ['', { nonNullable: true, validators: [Validators.required, Validators.minLength(3), Validators.maxLength(20)] }],
-    description: ['', { nonNullable: true, validators: Validators.maxLength(255) }],
-    img: ['', { nonNullable: true, validators: [Validators.required, Validators.pattern(this.urlImageregex)] }],
-    video: ['', { nonNullable: true, validators: [Validators.required, Validators.pattern(this.urlYoutuberegex)] }],
-    date: ['', { nonNullable: true, validators: [Validators.required, dateValidator()] }],
+    title: ['Angular', { nonNullable: true, validators: [Validators.required, Validators.minLength(3), Validators.maxLength(20)] }],
+    description: ['-', { nonNullable: true, validators: Validators.maxLength(255) }],
+    img: ['https://i.ytimg.com/vi/YN8zNnV0sK8/hqdefault.jpg', { nonNullable: true, validators: [Validators.required, Validators.pattern(this.urlImageregex)] }],
+    video: ['https://www.youtube.com/watch?v=iWX7qCGVt9U', { nonNullable: true, validators: [Validators.required, Validators.pattern(this.urlYoutuberegex)] }],
+    date: ['2023-11-01', { nonNullable: true, validators: [Validators.required, dateValidator()] }],
     tags: this.fb.array([this.createTagsFormGroup()]),
   });
 
@@ -35,7 +34,6 @@ export class AdminPageComponent {
     private fb: FormBuilder,
     private readonly store: Store,
     private router: Router,
-    private searchService: SearchVideosService,
   ) { }
 
   createTagsFormGroup(): FormGroup {

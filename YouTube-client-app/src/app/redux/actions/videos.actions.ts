@@ -14,8 +14,4 @@ export const createCustomCard = createAction('[Videos] Create Custom Card', prop
 
 export const deleteCustomCard = createAction('[Videos] Delete Custom Card', props<{ id: string }>());
 
-export const addToFavorite = createAction('[Videos] Add To Favorite');
-
-export const makeFavoriteSuccess = createAction('[Videos] Make Favorite Success', props<{ favorite: VideoItem }>());
-
-export const deleteFavoriteSuccess = createAction('[Videos] Delete Favorite Success', props<{ favorite: VideoItem }>());
+export const changeFavorite = createAction('[Videos] Change Favorite', props<{ id: string, favoriteList: VideoItem }>());

@@ -12,4 +12,6 @@ export const selectCards = createSelector(selectFeature, (state: VideosState) =>
 
 export const selectCard = createSelector(selectFeature, (state: VideosState) => state.selectedCard);
 
-export const selectFavor = createSelector(selectFeature, (state: VideosState) => state.favorite);
+export const selectFavoriteList = createSelector(selectFeature, (state: VideosState) => {
+  return state.favoriteList;
+});

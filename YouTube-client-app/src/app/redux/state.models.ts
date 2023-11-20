@@ -5,7 +5,7 @@ export interface VideosState {
   selectedCard?: CustomCard;
   items: VideoItem[];
   searchTerm: string;
-  favorite: VideoItem[];
+  favoriteList: VideoItem[];
 }
 
 export interface CustomCard {
@@ -21,5 +21,5 @@ export const initialState: VideosState = {
   cards: [],
   items: [],
   searchTerm: '',
-  favorite: [],
+  favoriteList: [],
 };

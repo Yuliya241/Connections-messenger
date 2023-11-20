@@ -1,7 +1,7 @@
 .statistics-block {
   display: flex;
   justify-content: space-between;
-  padding: 10px 0;
+  padding: 10px 0 0 0;
   width: 100%;
   gap: 5px;
 }
@@ -35,17 +35,6 @@ p {
   text-align: right;
   margin: 0;
   max-width: 230px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: pre;
-  word-wrap: break-word;
-  cursor: pointer;
-}
-
-.title:hover {
-  overflow: visible;
-  text-overflow: inherit;
-  white-space: normal;
 }
 
 .count {
@@ -55,14 +44,6 @@ p {
   font-size: 11px;
   line-height: 11.72px;
   text-align: right;
-}
-
-.count-video {
-  color: var(--grey-color);
-  font-family: Roboto;
-  font-weight: 400;
-  font-size: 11px;
-  line-height: 11.72px;
 }
 
 .card.mat-mdc-card {
@@ -100,4 +81,23 @@ p {
   font-weight: 400;
   font-size: 12px;
   line-height: 16.41px;
+}
+
+.count-video {
+  color: var(--grey-color);
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 11.72px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre;
+  word-wrap: break-word;
+  cursor: pointer;
+}
+
+.count-video:hover {
+  overflow: visible;
+  text-overflow: inherit;
+  white-space: normal;
 }

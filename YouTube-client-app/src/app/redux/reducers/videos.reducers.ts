@@ -1,13 +1,11 @@
 import { createReducer, on } from '@ngrx/store';
 
 import {
-  addToFavorite,
+  changeFavorite,
   createCustomCard,
   deleteCustomCard,
-  deleteFavoriteSuccess,
   fetchVideos,
   fetchVideosSuccess,
-  makeFavoriteSuccess,
   setCustomCard,
 } from '../actions/videos.actions';
 import { initialState, VideosState } from '../state.models';
@@ -33,17 +31,13 @@ export const videosReducer = createReducer<VideosState>(
   on(deleteCustomCard, (state, { id }): VideosState => ({
     ...state,
     cards: state.cards.filter((card) => card.id !== id),
-    // cards: state.cards.filter((card) => card.id !== id),
   })),
-  on(addToFavorite, (state): VideosState => ({
-    ...state,
-  })),
-  on(makeFavoriteSuccess, (state, action): VideosState => ({
-    ...state,
-    favorite: [...state.favorite, action.favorite],
-  })),
-  on(deleteFavoriteSuccess, (state, action): VideosState => ({
-    ...state,
-    favorite: [...state.favorite, action.favorite],
-  })),
+  on(changeFavorite, (state, { id, favoriteList }): VideosState => {
+    const item = [...state.favoriteList].map((elem) => elem.id).includes(id);
+    return {
+      ...state,
+      favoriteList: item ? state.favoriteList
+        .filter((card) => card.id !== id) : [...state.favoriteList, favoriteList],
+    };
+  }),
 );

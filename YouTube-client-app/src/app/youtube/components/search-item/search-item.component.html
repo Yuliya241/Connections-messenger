@@ -21,8 +21,9 @@
   <h4 class="title">{{ item.snippet.localized.title }}</h4>
   <div class="block-buttons">
     <app-custom-button [routerLink]="[item.id]" routerLinkActive="active">more...</app-custom-button>
-    <button class="button" type="button" (click)="addToFavorite()">
-      <mat-icon class="favourite" [style.color]="this.color">favorite</mat-icon>
+    <button class="button" type="button" (click)="addToFavorite(item)">
+      <mat-icon class="favourite" *ngIf="(isFavorite$ | async) === false">favorite</mat-icon>
+      <mat-icon class="favourite" [style.color]="color" *ngIf="(isFavorite$ | async) === true">favorite</mat-icon>
     </button>
   </div>
 </mat-card>
