@@ -9,15 +9,15 @@
       <p class="field-name">Date:</p>
       <p class="count">{{ card.date }}</p>
     </div>
-    <div>
-      <p class="field-name">Video:</p>
-      <p class="count-video">{{ card.video }}</p>
-    </div>
+  </div>
+  <div>
+    <p class="field-name">Video:</p>
+    <p class="count-video">{{ card.video }}</p>
   </div>
   <h4 class="title">{{ card.title }}</h4>
   <div class="block-buttons">
     <app-custom-button [routerLink]="'custom/' + [card.id]" routerLinkActive="active">more...</app-custom-button>
-    <button class="button" type="button">
+    <button class="button" type="button" (click)="deleteCard(card)">
       <mat-icon class="custom">delete_forever</mat-icon>
     </button>
   </div>

@@ -3,6 +3,7 @@ import { createReducer, on } from '@ngrx/store';
 import {
   addToFavorite,
   createCustomCard,
+  deleteCustomCard,
   deleteFavoriteSuccess,
   fetchVideos,
   fetchVideosSuccess,
@@ -29,13 +30,11 @@ export const videosReducer = createReducer<VideosState>(
     ...state,
     cards: [...state.cards, action.newCard],
   })),
-  // on(deleteCustomCard, (state, action): VideosState => ({
-  //   const cards = [...state.cards];
-  //   const index = cards.findIndex((x) => x.id === action.card.id);
-  //   products.splice(index, 1);
-  //   ...state,
-  //   cards: state.cards.find((card) => card.id !== id),
-  // })),
+  on(deleteCustomCard, (state, { id }): VideosState => ({
+    ...state,
+    cards: state.cards.filter((card) => card.id !== id),
+    // cards: state.cards.filter((card) => card.id !== id),
+  })),
   on(addToFavorite, (state): VideosState => ({
     ...state,
   })),

@@ -12,7 +12,7 @@ export const setCustomCard = createAction('[Videos] Set Custom Card', props<{ id
 
 export const createCustomCard = createAction('[Videos] Create Custom Card', props<{ newCard: CustomCard }>());
 
-export const deleteCustomCard = createAction('[Videos] Delete Custom Card', props<{ newCard: CustomCard }>());
+export const deleteCustomCard = createAction('[Videos] Delete Custom Card', props<{ id: string }>());
 
 export const addToFavorite = createAction('[Videos] Add To Favorite');
 

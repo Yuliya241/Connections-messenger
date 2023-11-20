@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 
+import { deleteCustomCard } from 'src/app/redux/actions/videos.actions';
 import { CustomCard } from 'src/app/redux/state.models';
 
 @Component({
@@ -11,12 +12,9 @@ import { CustomCard } from 'src/app/redux/state.models';
 export class CustomCardComponent {
   @Input() card: CustomCard | undefined;
 
-  id = '';
-
   constructor(private readonly store: Store) { }
 
-  // public deleteCard(id: string) {
-  //   this.store.dispatch(deleteCustomCard({ id }));
-  //   this.store.select(selectCard);
-  // }
+  public deleteCard(card: CustomCard) {
+    this.store.dispatch(deleteCustomCard({ id: card.id }));
+  }
 }

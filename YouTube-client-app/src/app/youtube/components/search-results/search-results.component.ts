@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
+import { Store } from '@ngrx/store';
 
+import { selectCards } from 'src/app/redux/selectors/videos.selector';
 import { CustomCard } from 'src/app/redux/state.models';
 import { VideoItem } from 'src/app/youtube/models/search-item.model';
 
@@ -12,4 +14,8 @@ export class SearchResultsComponent {
   @Input() items: VideoItem[] = [];
 
   @Input() cards: CustomCard[] = [];
+
+  constructor(private readonly store: Store) { }
+
+  public cards$ = this.store.select(selectCards);
 }

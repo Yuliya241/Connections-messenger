@@ -3,8 +3,9 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { tap } from 'rxjs';
-import { setCustomCard } from 'src/app/redux/actions/videos.actions';
+import { deleteCustomCard, setCustomCard } from 'src/app/redux/actions/videos.actions';
 import { selectCard } from 'src/app/redux/selectors/videos.selector';
+import { CustomCard } from 'src/app/redux/state.models';
 
 @Component({
   selector: 'app-custom-detailed-page',
@@ -22,10 +23,7 @@ export class CustomDetailedPageComponent implements OnInit {
     }),
   );
 
-  constructor(
-    private router: Router,
-    private store: Store,
-  ) { }
+  constructor(private router: Router, private store: Store) { }
 
   ngOnInit(): void {
     if (!this.id) {
@@ -37,6 +35,11 @@ export class CustomDetailedPageComponent implements OnInit {
   }
 
   public back(): void {
+    this.router.navigateByUrl('/main');
+  }
+
+  public deleteCard(card: CustomCard) {
+    this.store.dispatch(deleteCustomCard({ id: card.id }));
     this.router.navigateByUrl('/main');
   }
 }

@@ -1,6 +1,6 @@
 .statistics-block {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   padding: 10px 0;
   width: 100%;
   gap: 5px;
@@ -98,6 +98,6 @@ p {
   color: var(--black-color);
   font-family: Roboto;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 16.41px;
 }
