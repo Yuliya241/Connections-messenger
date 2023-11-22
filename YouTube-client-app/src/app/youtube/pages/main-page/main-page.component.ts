@@ -1,3 +1,4 @@
+/* eslint-disable @ngrx/avoid-dispatching-multiple-actions-sequentially */
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 
@@ -46,17 +47,12 @@ export class MainPageComponent {
   public pageNumber$ = this.store.select(selectPageNumber);
 
   onPreviousPage(): void {
-    // eslint-disable-next-line @ngrx/avoid-dispatching-multiple-actions-sequentially
     this.store.dispatch(changePageNumber({ pageNumber: this.pageNumber -= 1 }));
-    // eslint-disable-next-line @ngrx/avoid-dispatching-multiple-actions-sequentially
-    this.store
-      .dispatch(fetchVideosNext());
+    this.store.dispatch(fetchVideosNext());
   }
 
   onNextPage(): void {
-    // eslint-disable-next-line @ngrx/avoid-dispatching-multiple-actions-sequentially
     this.store.dispatch(changePageNumber({ pageNumber: this.pageNumber += 1 }));
-    // eslint-disable-next-line @ngrx/avoid-dispatching-multiple-actions-sequentially
     this.store.dispatch(fetchVideosNext());
   }
 }
