@@ -2,11 +2,14 @@ import { createReducer, on } from '@ngrx/store';
 
 import {
   changeFavorite,
+  changePageNumber,
   createCustomCard,
   deleteCustomCard,
   fetchVideos,
+  fetchVideosNext,
   fetchVideosSuccess,
   setCustomCard,
+  setPageToken,
 } from '../actions/videos.actions';
 import { initialState, VideosState } from '../state.models';
 
@@ -40,4 +43,15 @@ export const videosReducer = createReducer<VideosState>(
         .filter((card) => card.id !== id) : [...state.favoriteList, favoriteList],
     };
   }),
+  on(changePageNumber, (state, { pageNumber }): VideosState => ({
+    ...state,
+    pageNumber,
+  })),
+  on(setPageToken, (state, { pageToken }): VideosState => ({
+    ...state,
+    pageToken,
+  })),
+  on(fetchVideosNext, (state): VideosState => ({
+    ...state,
+  })),
 );

@@ -15,3 +15,15 @@ export const selectCard = createSelector(selectFeature, (state: VideosState) => 
 export const selectFavoriteList = createSelector(selectFeature, (state: VideosState) => {
   return state.favoriteList;
 });
+
+export const selectPageNumber = createSelector(selectFeature, (state: VideosState) => {
+  return state.pageNumber;
+});
+
+export const selectPageToken = createSelector(selectFeature, (state: VideosState) => {
+  return state.pageToken;
+});
+
+export const selectSearchParams = createSelector(selectFeature, (state: VideosState) => {
+  return { searchTerm: state.searchTerm, pageToken: state.pageToken };
+});

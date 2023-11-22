@@ -15,3 +15,9 @@ export const createCustomCard = createAction('[Videos] Create Custom Card', prop
 export const deleteCustomCard = createAction('[Videos] Delete Custom Card', props<{ id: string }>());
 
 export const changeFavorite = createAction('[Videos] Change Favorite', props<{ id: string, favoriteList: VideoItem }>());
+
+export const changePageNumber = createAction('[Videos] Change PageNumber', props<{ pageNumber: number }>());
+
+export const setPageToken = createAction('[Videos] Set Page Token', props<{ pageToken: string }>());
+
+export const fetchVideosNext = createAction('[Videos] Fetch Videos Next');

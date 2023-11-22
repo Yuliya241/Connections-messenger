@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { combineLatest, map } from 'rxjs';
-import { selectCards, selectVideos } from 'src/app/redux/selectors/videos.selector';
+import { changePageNumber, fetchVideosNext } from 'src/app/redux/actions/videos.actions';
+import { selectCards, selectPageNumber, selectVideos } from 'src/app/redux/selectors/videos.selector';
 
 import { YoutubeService } from '../../services/youtube.service';
 
@@ -38,5 +39,24 @@ export class MainPageComponent {
 
   get text() {
     return this.youtubeService.searchTerm;
+  }
+
+  public pageNumber = 1;
+
+  public pageNumber$ = this.store.select(selectPageNumber);
+
+  onPreviousPage(): void {
+    // eslint-disable-next-line @ngrx/avoid-dispatching-multiple-actions-sequentially
+    this.store.dispatch(changePageNumber({ pageNumber: this.pageNumber -= 1 }));
+    // eslint-disable-next-line @ngrx/avoid-dispatching-multiple-actions-sequentially
+    this.store
+      .dispatch(fetchVideosNext());
+  }
+
+  onNextPage(): void {
+    // eslint-disable-next-line @ngrx/avoid-dispatching-multiple-actions-sequentially
+    this.store.dispatch(changePageNumber({ pageNumber: this.pageNumber += 1 }));
+    // eslint-disable-next-line @ngrx/avoid-dispatching-multiple-actions-sequentially
+    this.store.dispatch(fetchVideosNext());
   }
 }

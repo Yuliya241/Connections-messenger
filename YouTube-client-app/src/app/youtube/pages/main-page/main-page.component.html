@@ -1,3 +1,8 @@
 <app-search-results *ngIf="searchResults$ | async; let data"
   [items]="data.videos | filter: text | orderByDate: dateOrder | orderByViews: viewsOrder" [cards]="data.cards">
 </app-search-results>
+<div class="pagination-buttons">
+  <button type="button" aria-label="Previous Page" (click)="onPreviousPage()" [disabled]="pageNumber===1">←</button>
+  <span>{{ pageNumber$ | async }}</span>
+  <button type="button" aria-label="Next Page" (click)="onNextPage()">→</button>
+</div>

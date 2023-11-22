@@ -6,6 +6,8 @@ export interface VideosState {
   items: VideoItem[];
   searchTerm: string;
   favoriteList: VideoItem[];
+  pageNumber: number;
+  pageToken: string;
 }
 
 export interface CustomCard {
@@ -22,4 +24,6 @@ export const initialState: VideosState = {
   items: [],
   searchTerm: '',
   favoriteList: [],
+  pageNumber: 1,
+  pageToken: '',
 };
