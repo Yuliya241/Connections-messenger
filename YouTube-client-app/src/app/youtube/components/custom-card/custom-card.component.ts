@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { deleteCustomCard } from 'src/app/redux/actions/videos.actions';
-import { CustomCard } from 'src/app/redux/state.models';
+import { deleteCustomCard } from '../../../redux/actions/videos.actions';
+import { CustomCard } from '../../../redux/state.models';
 
 @Component({
   selector: 'app-custom-card',

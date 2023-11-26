@@ -8,7 +8,7 @@ describe('SettingsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SettingsButtonComponent],
+      imports: [SettingsButtonComponent],
     });
     fixture = TestBed.createComponent(SettingsButtonComponent);
     component = fixture.componentInstance;
@@ -17,5 +17,16 @@ describe('SettingsComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should emit showFilterBlock', () => {
+    jest.spyOn(component.showFilterBlock, 'emit');
+    expect(component.showFilterBlock.emit).not.toHaveBeenCalled();
+  });
+
+  it('should call showFilter', () => {
+    const mySpy = jest.spyOn(component.showFilterBlock, 'emit');
+    component.showFilter();
+    expect(mySpy).toHaveBeenCalledTimes(1);
   });
 });

@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { map, Subject, switchMap } from 'rxjs';
-import { setPageToken } from 'src/app/redux/actions/videos.actions';
-import { environment } from 'src/environments/environment';
 
+import { environment } from '../../../environments/environment';
+import { setPageToken } from '../../redux/actions/videos.actions';
 import { SearchResponse, VideoResponse } from '../models/search-item.model';
 
 @Injectable({

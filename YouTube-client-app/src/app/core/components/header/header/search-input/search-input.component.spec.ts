@@ -8,7 +8,7 @@ describe('SearchInputComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SearchInputComponent],
+      imports: [SearchInputComponent],
     });
     fixture = TestBed.createComponent(SearchInputComponent);
     component = fixture.componentInstance;
@@ -17,5 +17,16 @@ describe('SearchInputComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should emit changeText', () => {
+    jest.spyOn(component.changeText, 'emit');
+    expect(component.changeText.emit).not.toHaveBeenCalled();
+  });
+
+  it('should call search', () => {
+    const mySpy = jest.spyOn(component.changeText, 'emit');
+    component.search();
+    expect(mySpy).toHaveBeenCalledTimes(1);
   });
 });

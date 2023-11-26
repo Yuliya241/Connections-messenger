@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { combineLatest, map } from 'rxjs';
-import { changePageNumber, fetchVideosNext } from 'src/app/redux/actions/videos.actions';
-import { selectCards, selectPageNumber, selectVideos } from 'src/app/redux/selectors/videos.selector';
 
+import { changePageNumber, fetchVideosNext } from '../../../redux/actions/videos.actions';
+import { selectCards, selectPageNumber, selectVideos } from '../../../redux/selectors/videos.selector';
 import { YoutubeService } from '../../services/youtube.service';
 
 @Component({

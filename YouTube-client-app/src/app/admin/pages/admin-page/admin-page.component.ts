@@ -3,8 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { createCustomCard } from 'src/app/redux/actions/videos.actions';
-
+import { createCustomCard } from '../../../redux/actions/videos.actions';
 import { dateValidator } from '../../date-validator';
 
 @Component({

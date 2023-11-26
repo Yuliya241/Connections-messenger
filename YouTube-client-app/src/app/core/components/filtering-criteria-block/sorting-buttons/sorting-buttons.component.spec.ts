@@ -18,4 +18,16 @@ describe('SortingButtonsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should call orderByViews', () => {
+    const mySpy = jest.spyOn(component.sortView, 'emit');
+    component.orderByViews();
+    expect(mySpy).toHaveBeenCalledTimes(1);
+  });
+
+  it('should call orderByDate', () => {
+    const mySpy = jest.spyOn(component.sortDate, 'emit');
+    component.orderByDate();
+    expect(mySpy).toHaveBeenCalledTimes(1);
+  });
 });

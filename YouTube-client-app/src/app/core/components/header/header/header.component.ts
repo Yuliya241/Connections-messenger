@@ -4,10 +4,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { AuthService } from 'src/app/auth/services/auth.service';
-import { fetchVideos } from 'src/app/redux/actions/videos.actions';
-import { YoutubeService } from 'src/app/youtube/services/youtube.service';
-
+import { AuthService } from '../../../../auth/services/auth.service';
+import { fetchVideos } from '../../../../redux/actions/videos.actions';
+import { YoutubeService } from '../../../../youtube/services/youtube.service';
 import { LoginComponent } from './login/login.component';
 import { LogoComponent } from './logo/logo.component';
 import { SearchInputComponent } from './search-input/search-input.component';

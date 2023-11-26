@@ -3,9 +3,10 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { tap } from 'rxjs';
-import { deleteCustomCard, setCustomCard } from 'src/app/redux/actions/videos.actions';
-import { selectCard } from 'src/app/redux/selectors/videos.selector';
-import { CustomCard } from 'src/app/redux/state.models';
+
+import { deleteCustomCard, setCustomCard } from '../../../redux/actions/videos.actions';
+import { selectCard } from '../../../redux/selectors/videos.selector';
+import { CustomCard } from '../../../redux/state.models';
 
 @Component({
   selector: 'app-custom-detailed-page',

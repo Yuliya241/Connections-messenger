@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 
 import { MainPageComponent } from './main-page.component';
 
@@ -9,6 +10,7 @@ describe('MainPageComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [MainPageComponent],
+      providers: [provideMockStore({})],
     });
     fixture = TestBed.createComponent(MainPageComponent);
     component = fixture.componentInstance;

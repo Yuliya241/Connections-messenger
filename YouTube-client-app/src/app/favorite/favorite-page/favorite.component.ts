@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { selectFavoriteList } from 'src/app/redux/selectors/videos.selector';
+import { selectFavoriteList } from '../../redux/selectors/videos.selector';
 
 @Component({
   selector: 'app-favorite',

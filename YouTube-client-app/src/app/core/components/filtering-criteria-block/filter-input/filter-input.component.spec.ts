@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import { FilterInputComponent } from './filter-input.component';
 
@@ -9,6 +10,7 @@ describe('FilterInputComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [FilterInputComponent],
+      imports: [FormsModule],
     });
     fixture = TestBed.createComponent(FilterInputComponent);
     component = fixture.componentInstance;
@@ -17,5 +19,11 @@ describe('FilterInputComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should call handleTextChange', () => {
+    const mySpy = jest.spyOn(component.changeText, 'emit');
+    component.handleTextChange();
+    expect(mySpy).toHaveBeenCalledTimes(1);
   });
 });

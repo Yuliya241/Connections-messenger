@@ -3,9 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { map } from 'rxjs';
-import { changeFavorite } from 'src/app/redux/actions/videos.actions';
-import { selectFavoriteList } from 'src/app/redux/selectors/videos.selector';
 import { VideoItem } from 'src/app/youtube/models/search-item.model';
+
+import { changeFavorite } from '../../../redux/actions/videos.actions';
+import { selectFavoriteList } from '../../../redux/selectors/videos.selector';
 
 @Component({
   selector: 'app-search-item',
