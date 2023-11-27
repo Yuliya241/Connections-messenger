@@ -3,8 +3,8 @@ import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 
 import { debounceTime, filter, map, switchMap } from 'rxjs';
-import { SearchVideosService } from 'src/app/youtube/services/search-videos.service';
 
+import { SearchVideosService } from '../../youtube/services/search-videos.service';
 import { fetchVideos, fetchVideosNext, fetchVideosSuccess } from '../actions/videos.actions';
 import { selectSearchParams } from '../selectors/videos.selector';
 
