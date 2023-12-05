@@ -1,0 +1,34 @@
+<form class="wrapper" [formGroup]="formSignIn" (ngSubmit)="onSubmit()" *ngIf="loaded$ | async">
+  <div class="form-wrapper">
+    <span class="title">Sign in</span>
+    <div class="input-field">
+      <label class="label" for="login">email</label>
+      <input class="input" id="login" type="text" formControlName="email"
+        [class.invalid]="email.invalid && (email.dirty || email.touched || isSubmitted)">
+    </div>
+    <small *ngIf="email.invalid && (email.dirty || email.touched || isSubmitted)" class="error-message">
+      <div *ngIf="email.errors?.['required']">Please enter an email</div>
+      <div *ngIf="email.errors?.['email']">The email is invalid</div>
+    </small>
+    <div class="input-field">
+      <label class="label" for="password">password</label>
+      <input class="input" id="password" type="password" formControlName="password"
+        [class.invalid]="password.invalid && (password.dirty || password.touched || isSubmitted)">
+    </div>
+    <small *ngIf="password.invalid && (password.dirty || password.touched || isSubmitted)" class="error-message">
+      <div *ngIf="password.errors?.['required']">Please enter a password</div>
+      <div *ngIf="password.errors?.['minlength']">at least 8 characters should include</div>
+      <div *ngIf="password.errors?.['hasNumber']">at least 1 number should include</div>
+      <div *ngIf="password.errors?.['hasUpperCase']">at least 1 uppercase letter should include</div>
+      <div *ngIf="password.errors?.['hasSpecialCharacters']">at least one special character, e.g., ! $ # ?
+        ] should include</div>
+    </small>
+    <div style="color:red" *ngIf="isDataExist && (errorMessage$ | async) as error">{{error}}</div>
+    <button mat-raised-button color="primary" class="button"
+      [disabled]="formSignIn.invalid || (loading$ | async) || isDataExist">Sign In</button>
+    <div class="link-block">
+      <span>Don't have an account?&nbsp;</span>
+      <a class="link-signup" routerLink="/signup" routerLinkActive="active">Sign up</a>
+    </div>
+  </div>
+</form>

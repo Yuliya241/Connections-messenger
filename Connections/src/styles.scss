@@ -1,0 +1,44 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: var(--body-color);
+}
+
+:root {
+  --form-button-color: rgba(119 86 171);
+  --text-color: rgba(255, 255, 255, 1);
+  --grey-color: rgb(81, 79, 79);
+  --input-color: rgba(224, 224, 224, 1);
+  --black-color: rgba(0, 0, 0, 1);
+  --card-color: rgba(242, 242, 242, 1);
+  --header-color: rgba(132 118 161);
+  --link-color: rgba(223, 138, 10);
+  --message-color: rgba(255, 0, 0);
+  --body-color: rgba(206 203 223);
+  --snackbar-color: rgba(34, 31, 31);
+  --button-color: rgb(45, 167, 180);
+  --icon-color: rgba(254, 254, 254, 1);
+
+  .dark {
+    --form-button-color: rgba(94 7 181);
+    --header-color: rgba(72 5 136);
+    --body-color: rgb(41 38 53);
+    --snackbar-color: rgba(224, 224, 224);
+    --icon-color: rgb(33, 31, 35);
+    --button-color: rgb(208, 242, 246);
+    --grey-color: rgb(215, 214, 216);
+  }
+}
+
+.green button {
+  color: green !important;
+}
+
+.red button {
+  color: red !important;
+}

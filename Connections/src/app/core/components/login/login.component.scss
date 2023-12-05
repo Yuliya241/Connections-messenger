@@ -1,0 +1,15 @@
+.button.mdc-button {
+  min-width: 50px;
+  padding: 0;
+  background-color: var(--button-color);
+}
+
+.button.mdc-button[disabled] {
+  background-color: rgb(154, 182, 185)
+}
+
+.login.mat-icon {
+  width: 35px;
+  margin: 0;
+  color: var(--icon-color);
+}
