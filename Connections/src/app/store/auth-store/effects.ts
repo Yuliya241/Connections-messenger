@@ -2,19 +2,22 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
 
-import { catchError, map, of, switchMap, tap } from 'rxjs';
+import { catchError, map, mergeMap, of, switchMap, tap } from 'rxjs';
 
 import { AuthService } from '../../auth/services/auth.service';
 import { LocalStorageService } from '../../core/services/local-storage.service';
 import { LocalStorageKeys, MessagesTypes } from '../../shared/enums/enums';
-import { authActionsSuccess, empty, errorMessage, logout, signIn, signUp } from './actions';
+import { authActionsSuccess, empty, errorMessage, getProfile, logout, setUser, signIn, signUp } from './actions';
 
 @Injectable()
 export class AuthEffects {
   private readonly actions$ = inject(Actions);
 
   private readonly router = inject(Router);
+
+  private readonly store = inject(Store);
 
   private readonly authService = inject(AuthService);
 
@@ -117,6 +120,23 @@ export class AuthEffects {
           ));
         }),
       )),
+    );
+  });
+
+  getProfile$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getProfile),
+      mergeMap(() => this.authService.profile()
+        .pipe(
+          map((user) => {
+            return setUser({ data: user });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(errorMessage(
+              { errorMessage: errorResponse.error.message, resulttype: MessagesTypes.FAILED },
+            ));
+          }),
+        )),
     );
   });
 }

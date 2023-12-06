@@ -9,9 +9,13 @@
 }
 
 .button.mdc-button {
-  min-width: 50px;
+  min-width: 55px;
   padding: 0;
   background-color: var(--button-color);
+}
+
+.button.mat-mdc-raised-button:not(:disabled) {
+  color: var(--icon-color);
 }
 
 .thema.mat-icon {

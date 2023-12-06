@@ -1,1 +1,6 @@
-<p>profile works!</p>
+<mat-card class="card" *ngIf="(userInfo$ | async) as user">
+  <p class="value-style"><span class="name-field">Name:&nbsp;</span>{{user.name.S}}</p>
+  <p class="value-style"><span class="name-field">Id:&nbsp;</span>{{user.uid.S}}</p>
+  <p class="value-style"><span class="name-field">Email address:&nbsp;</span>{{user.email.S}}</p>
+  <p class="value-style"><span class="name-field">Created at:&nbsp;</span>{{user.createdAt.S | date:'medium' }}</p>
+</mat-card>

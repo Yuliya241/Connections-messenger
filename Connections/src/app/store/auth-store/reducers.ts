@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { authActionsSuccess, errorMessage, logout, signIn, signUp } from './actions';
+import { authActionsSuccess, errorMessage, getProfile, logout, setUser, signIn, signUp } from './actions';
 import { AuthState, initialState } from './state.models';
 
 export const authReducer = createReducer<AuthState>(
@@ -32,6 +32,18 @@ export const authReducer = createReducer<AuthState>(
   })),
   on(logout, (state): AuthState => ({
     ...state,
+    loading: false,
+    loaded: true,
+  })),
+  on(getProfile, (state): AuthState => ({
+    ...state,
     loading: true,
+  })),
+  on(setUser, (state, action): AuthState => ({
+    ...state,
+    loaded: true,
+    loading: false,
+    profile: action.data,
+    isProfileLoaded: true,
   })),
 );

@@ -13,3 +13,9 @@ export const selectLoading = createSelector(selectFeature, (state: AuthState) =>
 export const selectLoaded = createSelector(selectFeature, (state: AuthState) => state.loaded);
 
 export const selectEmails = createSelector(selectFeature, (state: AuthState) => state.emails);
+
+export const selectProfile = createSelector(selectFeature, (state: AuthState) => state.profile);
+
+export const selectProfileLoaded = createSelector(selectFeature, (state: AuthState) => {
+  return state.isProfileLoaded;
+});

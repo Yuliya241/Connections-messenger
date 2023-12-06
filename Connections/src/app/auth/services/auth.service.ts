@@ -1,11 +1,10 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { BehaviorSubject, tap } from 'rxjs';
-import { LocalStorageService } from 'src/app/core/services/local-storage.service';
 import { LogoutButtonTypes, MessagesTypes, SnackbarColors } from 'src/app/shared/enums/enums';
-import { User } from 'src/app/store/auth-store/state.models';
+import { User, UserDetails } from 'src/app/store/auth-store/state.models';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -16,11 +15,7 @@ export class AuthService {
 
   public logout$ = this.logoutSource.asObservable();
 
-  constructor(
-    private http: HttpClient,
-    private snackbar: MatSnackBar,
-    private localStorage: LocalStorageService,
-  ) { }
+  constructor(private http: HttpClient, private snackbar: MatSnackBar) { }
 
   public register(userParams: { email: string, name: string, password: string }) {
     return this.http.post<User>(environment.postRegistration, userParams);
@@ -34,13 +29,14 @@ export class AuthService {
   }
 
   public logout() {
-    const headers = new HttpHeaders()
-      .set('rs-uid', `${this.localStorage.getItemUid()}`)
-      .set('rs-email', `${this.localStorage.getItemEmail()}`);
-    return this.http.delete<User>(environment.deleteLogout, { headers })
+    return this.http.delete<User>(environment.deleteLogout)
       .pipe(
         tap(() => this.logoutSource.next(LogoutButtonTypes.ACCOUNT_CIRCLE)),
       );
+  }
+
+  public profile() {
+    return this.http.get<UserDetails>(environment.getProfile);
   }
 
   openSnackBar(message: string, action: string) {

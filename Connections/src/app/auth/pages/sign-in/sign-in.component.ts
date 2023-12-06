@@ -1,3 +1,4 @@
+/* eslint-disable @ngrx/avoid-dispatching-multiple-actions-sequentially */
 import { Component, DestroyRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -54,7 +55,6 @@ export class SignInComponent {
         },
       ));
     }
-
     if (this.errorMessage$) {
       this.isDataExist = true;
     }

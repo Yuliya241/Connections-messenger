@@ -4,12 +4,29 @@ export interface User {
   messageError: string;
 }
 
+export interface UserDetails {
+  uid: {
+    S: string;
+  }
+  name: {
+    S: string;
+  }
+  createdAt: {
+    S: string;
+  }
+  email: {
+    S: string;
+  }
+}
+
 export interface AuthState {
   messageError: string;
   user: User | null;
   loading: boolean;
   loaded: boolean;
   emails: string[];
+  profile: UserDetails | null;
+  isProfileLoaded: boolean;
 }
 
 export const initialState: AuthState = {
@@ -18,4 +35,6 @@ export const initialState: AuthState = {
   loaded: true,
   loading: false,
   emails: [],
+  profile: null,
+  isProfileLoaded: false,
 };
