@@ -39,6 +39,10 @@ export class AuthService {
     return this.http.get<UserDetails>(environment.getProfile);
   }
 
+  public updateProfile(name: string) {
+    return this.http.put<UserDetails>(environment.putProfile, { name });
+  }
+
   openSnackBar(message: string, action: string) {
     return this.snackbar.open(message, 'OK', {
       verticalPosition: 'top',

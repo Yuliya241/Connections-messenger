@@ -17,3 +17,7 @@ export const logout = createAction('[Auth] Logout');
 export const getProfile = createAction('[Auth] Get Profile');
 
 export const setUser = createAction('[Auth] Set User', props<{ data: UserDetails }>());
+
+export const updateUser = createAction('[Auth] Update User', props<{ name: string }>());
+
+export const updateUserSuccess = createAction('[Auth] Update User Success');

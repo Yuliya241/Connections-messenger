@@ -27,6 +27,7 @@ const routes: Routes = [
   },
   {
     path: 'profile',
+    canActivate: [authGuard],
     component: ProfileComponent,
   },
   { path: '**', component: PageNotFoundComponent },

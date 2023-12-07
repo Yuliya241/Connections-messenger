@@ -9,7 +9,18 @@ import { catchError, map, mergeMap, of, switchMap, tap } from 'rxjs';
 import { AuthService } from '../../auth/services/auth.service';
 import { LocalStorageService } from '../../core/services/local-storage.service';
 import { LocalStorageKeys, MessagesTypes } from '../../shared/enums/enums';
-import { authActionsSuccess, empty, errorMessage, getProfile, logout, setUser, signIn, signUp } from './actions';
+import {
+  authActionsSuccess,
+  empty,
+  errorMessage,
+  getProfile,
+  logout,
+  setUser,
+  signIn,
+  signUp,
+  updateUser,
+  updateUserSuccess,
+} from './actions';
 
 @Injectable()
 export class AuthEffects {
@@ -130,6 +141,23 @@ export class AuthEffects {
         .pipe(
           map((user) => {
             return setUser({ data: user });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(errorMessage(
+              { errorMessage: errorResponse.error.message, resulttype: MessagesTypes.FAILED },
+            ));
+          }),
+        )),
+    );
+  });
+
+  updateProfile$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(updateUser),
+      switchMap((action) => this.authService.updateProfile(action.name)
+        .pipe(
+          map(() => {
+            return updateUserSuccess();
           }),
           catchError((errorResponse: HttpErrorResponse) => {
             return of(errorMessage(

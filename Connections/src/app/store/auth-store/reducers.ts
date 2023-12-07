@@ -1,7 +1,17 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { authActionsSuccess, errorMessage, getProfile, logout, setUser, signIn, signUp } from './actions';
-import { AuthState, initialState } from './state.models';
+import {
+  authActionsSuccess,
+  errorMessage,
+  getProfile,
+  logout,
+  setUser,
+  signIn,
+  signUp,
+  updateUser,
+  updateUserSuccess,
+} from './actions';
+import { AuthState, initialState, UserDetails } from './state.models';
 
 export const authReducer = createReducer<AuthState>(
   initialState,
@@ -46,4 +56,35 @@ export const authReducer = createReducer<AuthState>(
     profile: action.data,
     isProfileLoaded: true,
   })),
+  on(updateUser, (state, action): AuthState => ({
+    ...state,
+    loading: true,
+    nameChanged: {
+      S: action.name,
+    },
+    isProfileLoaded: true,
+  })),
+  on(updateUserSuccess, (state): AuthState => {
+    let data: UserDetails | null = {
+      uid: { S: '' },
+      name: { S: '' },
+      createdAt: { S: '' },
+      email: { S: '' },
+    };
+    if (state.profile !== null) {
+      data.uid.S = state.profile.uid.S;
+      data.name = state.nameChanged;
+      data.createdAt.S = state.profile.createdAt.S;
+      data.email.S = state.profile.email.S;
+    } else {
+      data = null;
+    }
+    return {
+      ...state,
+      profile: data,
+      loaded: true,
+      loading: false,
+      isProfileLoaded: true,
+    };
+  }),
 );

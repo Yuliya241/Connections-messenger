@@ -27,6 +27,9 @@ export interface AuthState {
   emails: string[];
   profile: UserDetails | null;
   isProfileLoaded: boolean;
+  nameChanged: {
+    S: string;
+  }
 }
 
 export const initialState: AuthState = {
@@ -37,4 +40,7 @@ export const initialState: AuthState = {
   emails: [],
   profile: null,
   isProfileLoaded: false,
+  nameChanged: {
+    S: '',
+  },
 };

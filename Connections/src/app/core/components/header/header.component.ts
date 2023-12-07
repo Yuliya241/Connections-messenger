@@ -6,9 +6,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
+import { Observable } from 'rxjs';
 import { LocalStorageKeys } from 'src/app/shared/enums/enums';
 import { getProfile } from 'src/app/store/auth-store/actions';
-import { selectProfileLoaded } from 'src/app/store/auth-store/selectors';
+import { selectLoading, selectProfileLoaded } from 'src/app/store/auth-store/selectors';
 
 import { LocalStorageService } from '../../services/local-storage.service';
 import { LoginComponent } from '../login/login.component';
@@ -21,6 +22,8 @@ import { LoginComponent } from '../login/login.component';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
+  loading$: Observable<boolean> = this.store.select(selectLoading);
+
   isDark = signal<boolean>(
     JSON.parse(this.localStorage.getIsDarkTheme() ?? 'false'),
   );

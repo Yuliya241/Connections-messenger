@@ -4,5 +4,6 @@
     <mat-icon class="thema" *ngIf="!isDark()">light_mode</mat-icon>
   </button>
   <app-login></app-login>
-  <button class="button" mat-raised-button color="primary" type="button" (click)="goToProfile()">Profile</button>
+  <button class="button" mat-raised-button color="primary" type="button" (click)="goToProfile()"
+    [disabled]="loading$ | async">Profile</button>
 </header>
