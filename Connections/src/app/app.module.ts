@@ -1,5 +1,6 @@
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { isDevMode, NgModule } from '@angular/core';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,6 +14,10 @@ import { CoreModule } from './core/core.module';
 import { RequestInterceptor } from './core/interceptors/request.interceptor';
 import { AuthEffects } from './store/auth-store/effects';
 import { authReducer } from './store/auth-store/reducers';
+import { ChatEffects } from './store/chat-store/chat.effects';
+import { chatReducer } from './store/chat-store/chat.reducers';
+
+const dialogMock = { close: () => { } };
 
 @NgModule({
   declarations: [
@@ -25,8 +30,9 @@ import { authReducer } from './store/auth-store/reducers';
     CoreModule,
     HttpClientModule,
     MatSnackBarModule,
-    StoreModule.forRoot({ auth: authReducer }, {}),
-    EffectsModule.forRoot([AuthEffects]),
+    MatDialogModule,
+    StoreModule.forRoot({ auth: authReducer, chat: chatReducer }, {}),
+    EffectsModule.forRoot([AuthEffects, ChatEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
   providers: [
@@ -34,6 +40,10 @@ import { authReducer } from './store/auth-store/reducers';
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor,
       multi: true,
+    },
+    {
+      provide: MatDialogRef,
+      useValue: { dialogMock },
     },
   ],
   bootstrap: [AppComponent],

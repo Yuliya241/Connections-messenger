@@ -1,1 +1,14 @@
-<p>main-page works!</p>
+<main class="wrapper">
+  <div class="group-list">
+    <div class="buttons-block">
+      <button mat-raised-button color="primary" class="button" type="button" (click)="getGroup()"
+        [disabled]="(countdown$ | async) !== 0 && (countdown$ | async) || (loading$ | async)">Update</button>
+      <span class="count" *ngIf="(countdown$ | async) !== 0">{{countdown$ | async}}</span>
+      <button mat-raised-button color="primary" class="button" type="button" (click)="openDialog()">Create</button>
+    </div>
+    <app-group-list-items></app-group-list-items>
+  </div>
+  <div class="people-list">
+    <p class="section-right">people-list works!</p>
+  </div>
+</main>

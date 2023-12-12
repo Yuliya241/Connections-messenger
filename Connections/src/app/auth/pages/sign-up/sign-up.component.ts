@@ -22,6 +22,8 @@ export class SignUpComponent {
 
   emailSignUp$: Observable<string[]> = this.store.select(selectEmails);
 
+  urlImageregex = /(https:\/\/)([^\s(["<,>/]*)(\/)[^\s[",><]*(.png|.jpg)(\?[^\s[",><]*)?/;
+
   formSignUp = this.fb.group({
     name: ['', { nonNullable: true, validators: Validators.required }],
     email: ['', [Validators.required, Validators.email], emailValidator(this.emailSignUp$)],

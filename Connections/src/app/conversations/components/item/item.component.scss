@@ -1,0 +1,25 @@
+.item {
+  padding: 5px;
+  border: 1px groove rgb(97, 27, 231);
+  color: var(--black-color);
+  cursor: pointer;
+  max-width: 460px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button.mdc-button {
+  background-color: var(--delete-button-color);
+  width: 50px;
+  height: 30px;
+  color: var(--icon-color);
+  font-family: Roboto;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 14.06px;
+}
+
+.group-link {
+  text-decoration: none;
+}

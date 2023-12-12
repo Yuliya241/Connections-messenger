@@ -2,7 +2,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
 
 import { catchError, map, mergeMap, of, switchMap, tap } from 'rxjs';
 
@@ -27,8 +26,6 @@ export class AuthEffects {
   private readonly actions$ = inject(Actions);
 
   private readonly router = inject(Router);
-
-  private readonly store = inject(Store);
 
   private readonly authService = inject(AuthService);
 

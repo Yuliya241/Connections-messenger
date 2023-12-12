@@ -1,0 +1,17 @@
+<form class="wrapper" [formGroup]="formCreateGroup">
+  <div class="form-wrapper">
+    <h2 class="title">Add new group</h2>
+    <div class="input-field">
+      <label class="label" for="first">Name:</label>
+      <input class="input" id="first" type="text" formControlName="name" placeholder="Enter a name..."
+        [class.invalid]="name.invalid && (name.dirty || name.touched || isSubmitted)">
+    </div>
+    <small *ngIf="name.invalid && (name.dirty || name.touched || isSubmitted)" class="error-message">
+      <div *ngIf="name.errors?.['required']">Please enter a name</div>
+      <div *ngIf="name.errors?.['maxlength']">Is not more than 30 symbols</div>
+      <div *ngIf="name.errors?.['pattern']">contains only letters, digits or spaces</div>
+    </small>
+    <button mat-raised-button color="primary" class="button" type="submit" (click)="create()"
+      [disabled]="formCreateGroup.invalid || (loading$ | async)">Create</button>
+  </div>
+</form>
