@@ -9,14 +9,20 @@ import { ChatService } from 'src/app/conversations/services/chat.service';
 import { AuthService } from '../../auth/services/auth.service';
 import { MessagesTypes } from '../../shared/enums/enums';
 import {
+  createConversation,
+  createConversationSuccess,
   createGroup,
   createGroupSuccess,
   deleteGroup,
   deleteGroupSuccess,
   empty,
   errorMessage,
+  getConversationList,
+  getConversationListSuccess,
   getListOfGroup,
   getListOfGroupSuccess,
+  getListOfPeople,
+  getListOfPeopleSuccess,
 } from './chat.actions';
 
 @Injectable()
@@ -53,7 +59,7 @@ export class ChatEffects {
         .pipe(
           map((group) => {
             this.dialog.closeAll();
-            return createGroupSuccess({ groupID: group.groupID, errorMessage: 'Successful created', resulttype: MessagesTypes.SUCCESS });
+            return createGroupSuccess({ groupID: group.groupID, errorMessage: 'Group successful created', resulttype: MessagesTypes.SUCCESS });
           }),
           catchError((errorResponse: HttpErrorResponse) => {
             return of(errorMessage(
@@ -71,7 +77,7 @@ export class ChatEffects {
         .pipe(
           map(() => {
             this.dialog.closeAll();
-            return deleteGroupSuccess({ errorMessage: 'Successful deleted', resulttype: MessagesTypes.SUCCESS });
+            return deleteGroupSuccess({ errorMessage: 'Group successful deleted', resulttype: MessagesTypes.SUCCESS });
           }),
           catchError((errorResponse: HttpErrorResponse) => {
             return of(errorMessage(
@@ -124,6 +130,72 @@ export class ChatEffects {
             }),
           );
       }),
+    );
+  });
+
+  showCreateConversationSuccessMessage$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(createConversationSuccess),
+      switchMap((action) => {
+        return this.authService.openSnackBar(action.errorMessage, action.resulttype)
+          .afterDismissed()
+          .pipe(
+            map(() => {
+              return empty();
+            }),
+          );
+      }),
+    );
+  });
+
+  getPeopleList$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getListOfPeople),
+      mergeMap(() => this.chatService.getListOfPeople()
+        .pipe(
+          map((data) => {
+            return getListOfPeopleSuccess({ data });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(errorMessage(
+              { errorMessage: errorResponse.error.message, resulttype: MessagesTypes.FAILED },
+            ));
+          }),
+        )),
+    );
+  });
+
+  createConversation$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(createConversation),
+      switchMap((action) => this.chatService.createConversation(action.companion)
+        .pipe(
+          map((people) => {
+            return createConversationSuccess({ conversationID: people.companionID?.S, errorMessage: 'Successful created', resulttype: MessagesTypes.SUCCESS });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(errorMessage(
+              { errorMessage: errorResponse.error.message, resulttype: MessagesTypes.FAILED },
+            ));
+          }),
+        )),
+    );
+  });
+
+  getConversationList$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getConversationList),
+      mergeMap(() => this.chatService.getActiveConversations()
+        .pipe(
+          map((data) => {
+            return getConversationListSuccess({ data });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(errorMessage(
+              { errorMessage: errorResponse.error.message, resulttype: MessagesTypes.FAILED },
+            ));
+          }),
+        )),
     );
   });
 }

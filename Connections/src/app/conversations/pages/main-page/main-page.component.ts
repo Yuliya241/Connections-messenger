@@ -1,11 +1,18 @@
+/* eslint-disable @ngrx/avoid-dispatching-multiple-actions-sequentially */
 import { Component, DestroyRef, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 
-import { map, Observable, take, timer } from 'rxjs';
-import { getListOfGroup } from 'src/app/store/chat-store/chat.actions';
-import { selectGrouplistLoaded, selectLoading } from 'src/app/store/chat-store/chat.selectors';
+import { Observable } from 'rxjs';
+import { getConversationList, getListOfGroup, getListOfPeople } from 'src/app/store/chat-store/chat.actions';
+import {
+  selectConversationList,
+  selectGrouplistLoaded,
+  selectLoading,
+  selectLoadingButton,
+  selectPeoplelistLoaded,
+} from 'src/app/store/chat-store/chat.selectors';
 
 import { ModalCreateComponent } from '../../components/modal-create/modal-create.component';
 import { ChatService } from '../../services/chat.service';
@@ -16,11 +23,13 @@ import { ChatService } from '../../services/chat.service';
   styleUrls: ['./main-page.component.scss'],
 })
 export class MainPageComponent implements OnInit {
-  public countdown$?: Observable<number>;
+  public countGroup$?: Observable<number>;
+
+  public countPeople$?: Observable<number>;
 
   loading$: Observable<boolean> = this.store.select(selectLoading);
 
-  count = 60;
+  loadingButton$: Observable<boolean> = this.store.select(selectLoadingButton);
 
   constructor(
     public dialog: MatDialog,
@@ -37,6 +46,18 @@ export class MainPageComponent implements OnInit {
           this.store.dispatch(getListOfGroup());
         }
       });
+    setTimeout(() => this.store.select(selectPeoplelistLoaded)
+      .pipe(takeUntilDestroyed(this.destroyRef)).subscribe((isPeoplelistLoaded) => {
+        if (!isPeoplelistLoaded) {
+          this.store.dispatch(getListOfPeople());
+        }
+      }), 1000);
+    setTimeout(() => this.store.select(selectConversationList)
+      .pipe(takeUntilDestroyed(this.destroyRef)).subscribe((isConversationListLoaded) => {
+        if (!isConversationListLoaded) {
+          this.store.dispatch(getConversationList());
+        }
+      }), 1000);
   }
 
   public openDialog(): void {
@@ -45,9 +66,12 @@ export class MainPageComponent implements OnInit {
 
   public getGroup(): void {
     this.store.dispatch(getListOfGroup());
-    this.countdown$ = timer(1000, 1000).pipe(
-      map((i) => this.count - i),
-      take(this.count + 1),
-    );
+    this.countGroup$ = this.chatService.timerStart();
+  }
+
+  public getPeople(): void {
+    this.store.dispatch(getListOfPeople());
+    this.store.dispatch(getConversationList());
+    this.countPeople$ = this.chatService.timerStart();
   }
 }

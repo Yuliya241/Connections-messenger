@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ItemComponent } from './item.component';
+import { GroupItemComponent } from './group-item.component';
 
-describe('ItemComponent', () => {
-  let component: ItemComponent;
-  let fixture: ComponentFixture<ItemComponent>;
+describe('GroupItemComponent', () => {
+  let component: GroupItemComponent;
+  let fixture: ComponentFixture<GroupItemComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ItemComponent],
+      declarations: [GroupItemComponent],
     });
-    fixture = TestBed.createComponent(ItemComponent);
+    fixture = TestBed.createComponent(GroupItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

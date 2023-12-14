@@ -7,11 +7,11 @@ import { Item } from 'src/app/store/chat-store/chat-state.models';
 import { ModalDeleteComponent } from '../modal-delete/modal-delete.component';
 
 @Component({
-  selector: 'app-item',
-  templateUrl: './item.component.html',
-  styleUrls: ['./item.component.scss'],
+  selector: 'app-group-item',
+  templateUrl: './group-item.component.html',
+  styleUrls: ['./group-item.component.scss'],
 })
-export class ItemComponent implements OnInit {
+export class GroupItemComponent implements OnInit {
   public dialog = inject(MatDialog);
 
   public localStorage = inject(LocalStorageService);

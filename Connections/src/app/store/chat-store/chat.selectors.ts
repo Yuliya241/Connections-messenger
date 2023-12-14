@@ -19,3 +19,19 @@ export const selectLoaded = createSelector(selectFeature, (state: ChatState) => 
 export const selectGrouplistLoaded = createSelector(selectFeature, (state: ChatState) => {
   return state.isGrouplistLoaded;
 });
+
+export const selectPeoplelistLoaded = createSelector(selectFeature, (state: ChatState) => {
+  return state.isPeoplelistLoaded;
+});
+
+export const selectListOfPeople = createSelector(selectFeature, (state: ChatState) => {
+  return state.peoplelist?.Items;
+});
+
+export const selectLoadingButton = createSelector(selectFeature, (state: ChatState) => {
+  return state.loadingButton;
+});
+
+export const selectConversationList = createSelector(selectFeature, (state: ChatState) => {
+  return state.conversationlist?.Items;
+});

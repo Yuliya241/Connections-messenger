@@ -1,0 +1,7 @@
+<ng-container *ngIf="{ value: hasConversation$ | async } as dialog">
+  <a class="people-link" [routerLink]="'conversation/' + [item?.uid?.S]"
+    (click)="!dialog.value ? createDialog() : false">
+    <div class="item" [ngStyle]="{'background-color': (hasConversation$ | async) ? '#e2af35' : 'transparent'}"
+      *ngIf="item?.name?.S as name">{{name}}</div>
+  </a>
+</ng-container>

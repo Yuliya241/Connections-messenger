@@ -7,4 +7,7 @@ export const environment = {
   getListOfGroup: 'https://tasks.app.rs.school/angular/groups/list',
   postGroup: 'https://tasks.app.rs.school/angular/groups/create',
   deleteGroup: 'https://tasks.app.rs.school/angular/groups/delete',
+  getUsers: 'https://tasks.app.rs.school/angular/users',
+  getConversationList: 'https://tasks.app.rs.school/angular/conversations/list',
+  postConversation: 'https://tasks.app.rs.school/angular/conversations/create',
 };

@@ -1,17 +1,18 @@
 .group-list {
   width: 720px;
+  padding: 0 15px;
 }
 
 .people-list {
   width: 720px;
   border-left: 5px solid rgb(156, 154, 170);
+  padding: 0 15px;
 }
 
 .wrapper {
   max-width: 1440px;
   display: flex;
   margin: 0 auto;
-  padding: 0 15px;
 }
 
 .button.mdc-button {
@@ -24,7 +25,7 @@
   font-size: 14px;
   line-height: 14.06px;
   align-self: flex-end;
-  margin: 10px 0;
+  margin: 15px 0;
 }
 
 .button.mdc-button[disabled] {
@@ -43,4 +44,18 @@
 .count {
   color: rgb(238, 11, 11);
   font-size: 20px;
+}
+
+h2 {
+  margin: 0;
+  text-align: center;
+  color: #ffffff;
+  text-shadow: 0 0 5px #ffffff,
+    0 0 10px #ff000f,
+    0 0 20px #ffffff,
+    0 0 20px #2da7b4,
+    0 0 10px #2da7b4,
+    0 0 15px #2da7b4,
+    0 0 90px #2da7b4,
+    0 0 150px #2da7b4;
 }

@@ -1,14 +1,21 @@
 <main class="wrapper">
   <div class="group-list">
+    <h2>GROUPS</h2>
     <div class="buttons-block">
       <button mat-raised-button color="primary" class="button" type="button" (click)="getGroup()"
-        [disabled]="(countdown$ | async) !== 0 && (countdown$ | async) || (loading$ | async)">Update</button>
-      <span class="count" *ngIf="(countdown$ | async) !== 0">{{countdown$ | async}}</span>
+        [disabled]="(countGroup$ | async) !== 0 && (countGroup$ | async) || (loading$ | async)">Update</button>
+      <span class="count" *ngIf="(countGroup$ | async) !== 0">{{countGroup$ | async}}</span>
       <button mat-raised-button color="primary" class="button" type="button" (click)="openDialog()">Create</button>
     </div>
     <app-group-list-items></app-group-list-items>
   </div>
   <div class="people-list">
-    <p class="section-right">people-list works!</p>
+    <h2>PEOPLES</h2>
+    <div class="buttons-block">
+      <button mat-raised-button color="primary" class="button" type="button" (click)="getPeople()"
+        [disabled]="(countPeople$ | async) !== 0 && (countPeople$ | async) || (loadingButton$ | async)">Update</button>
+      <span class="count" *ngIf="(countPeople$ | async) !== 0">{{countPeople$ | async}}</span>
+    </div>
+    <app-people-list-items></app-people-list-items>
   </div>
 </main>
