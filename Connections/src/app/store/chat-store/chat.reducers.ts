@@ -11,10 +11,17 @@ import {
   errorMessage,
   getConversationList,
   getConversationListSuccess,
+  getLastMessages,
+  getLastMessagesSuccess,
   getListOfGroup,
   getListOfGroupSuccess,
+  getListOfMessages,
+  getListOfMessagesSuccess,
   getListOfPeople,
   getListOfPeopleSuccess,
+  sendMessages,
+  sendMessagesSuccess,
+  setSelectedGroup,
 } from './chat.actions';
 
 export const chatReducer = createReducer<ChatState>(
@@ -47,6 +54,7 @@ export const chatReducer = createReducer<ChatState>(
         name: { S: state.newName },
         createdBy: { S: localStorage.getItem('uid') || '' },
         groupID: action.groupID,
+        isLoadedGroup: true,
       },
       ],
     },
@@ -66,7 +74,7 @@ export const chatReducer = createReducer<ChatState>(
     loading: true,
     grouplist: {
       Items: [...state.grouplist?.Items || []]
-        .filter((group: Item) => group.id.S !== action.groupID),
+        .filter((group: Item) => group?.id?.S !== action.groupID),
     },
   })),
   on(deleteGroupSuccess, (state): ChatState => ({
@@ -76,7 +84,6 @@ export const chatReducer = createReducer<ChatState>(
     loading: false,
     isGrouplistLoaded: true,
   })),
-
   on(getListOfPeople, (state): ChatState => ({
     ...state,
     messageError: '',
@@ -130,4 +137,87 @@ export const chatReducer = createReducer<ChatState>(
     isPeoplelistLoaded: true,
     isConversationsLoaded: true,
   })),
+  on(setSelectedGroup, (state, action): ChatState => ({
+    ...state,
+    selectedGroup: action.groupID === state.groupID ? state.selectedGroup : undefined,
+    groupID: action.groupID,
+  })),
+  on(getListOfMessages, (state, action): ChatState => ({
+    ...state,
+    messageError: '',
+    loading: true,
+    loadingButton: true,
+    groupID: action.groupID,
+  })),
+  on(getListOfMessagesSuccess, (state, action): ChatState => ({
+    ...state,
+    messageError: '',
+    selectedGroup: {
+      ...state.selectedGroup,
+      messagelist: action.data,
+      isMessageListLoaded: true,
+    },
+    grouplist: {
+      Items: [...[...state.grouplist?.Items || []], {
+        isLoadedGroup: true,
+      },
+      ],
+    },
+    loaded: true,
+    loading: false,
+    isPeoplelistLoaded: true,
+    isGrouplistLoaded: true,
+    isConversationsLoaded: true,
+    loadingButton: false,
+  })),
+  on(getLastMessages, (state, action): ChatState => ({
+    ...state,
+    messageError: '',
+    loading: true,
+    loadingButton: true,
+    groupID: action.groupID,
+    selectedGroup: {
+      ...state.selectedGroup,
+      since: action.since,
+    },
+  })),
+  on(getLastMessagesSuccess, (state, action): ChatState => ({
+    ...state,
+    messageError: '',
+    selectedGroup: {
+      ...state.selectedGroup,
+      messagelist: action.data,
+      isMessageListLoaded: true,
+    },
+    loaded: true,
+    loading: false,
+    isPeoplelistLoaded: true,
+    isGrouplistLoaded: true,
+    isConversationsLoaded: true,
+    loadingButton: false,
+  })),
+  on(sendMessages, (state, action): ChatState => ({
+    ...state,
+    messageError: '',
+    loading: true,
+    groupID: action.groupID,
+    selectedGroup: {
+      ...state.selectedGroup,
+      messagelist: {
+        ...state.selectedGroup?.messagelist,
+        Items: [...state.selectedGroup?.messagelist?.Items || [], {
+          authorID: { S: localStorage.getItem('uid') || '' },
+          message: { S: action.message },
+          createdAt: { S: String(Date.now()) },
+        }],
+      },
+    },
+  })),
+  on(sendMessagesSuccess, (state): ChatState => ({
+    ...state,
+    messageError: '',
+    loaded: true,
+    loading: false,
+  })),
+
 );

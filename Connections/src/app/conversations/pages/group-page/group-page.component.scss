@@ -1,0 +1,100 @@
+.button.mdc-button {
+  background-color: var(--form-button-color);
+  width: 50px;
+  height: 30px;
+  color: var(--text-color);
+  font-family: Roboto;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 14.06px;
+  align-self: flex-end;
+  margin: 5px 0;
+}
+
+.button.update {
+  align-self: flex-start;
+}
+
+.button.delete {
+  align-self: flex-start;
+  width: 130px;
+}
+
+.link-back {
+  text-decoration: none;
+  color: var(--black-color);
+  font-size: 16px;
+  padding: 15px 0;
+}
+
+.link-back:hover {
+  color: rgb(227, 175, 54);
+}
+
+.button.mdc-button[disabled] {
+  background-color: rgb(175, 167, 207)
+}
+
+.buttons-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 0 15px;
+}
+
+.buttons-block {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 10px;
+}
+
+.form-wrapper {
+  flex-direction: column;
+  display: flex;
+  row-gap: 10px;
+}
+
+.wrapper {
+  background-color: var(--card-color);
+  color: var(--icon-color);
+  position: fixed;
+  bottom: 10px;
+  right: 15px;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.input {
+  font-weight: 700;
+  font-size: 16px;
+  color: rgb(25, 23, 21);
+  outline: 0;
+  border: 0;
+  width: 250px;
+  height: 30px;
+}
+
+.input::placeholder {
+  font-size: 14px;
+  color: rgb(0, 0, 0, 0.5);
+}
+
+.title {
+  margin: 0 auto;
+  font-size: 16px;
+  font-weight: 700;
+  color: rgb(0, 0, 0);
+}
+
+.error-message {
+  color: var(--message-color);
+}
+
+.invalid {
+  border: 1px solid var(--message-color);
+}
+
+.count {
+  color: rgb(238, 11, 11);
+  font-size: 20px;
+}

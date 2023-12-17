@@ -4,11 +4,14 @@ export interface Group {
 }
 
 export interface Item {
-  id: { S: string; };
-  name: { S: string; };
+  id?: { S: string; };
+  name?: { S: string; };
   createdAt?: { S: string; };
   createdBy?: { S: string; };
-  groupID: string;
+  groupID?: string;
+  isLoadedGroup: boolean;
+  messages?: GroupMessages;
+  lastUpdatedAt?: string; // since
 }
 
 export interface GroupPeople {
@@ -31,6 +34,17 @@ export interface Companion {
   companionID: { S: string; };
 }
 
+export interface GroupMessages {
+  Count?: number;
+  Items: Message[];
+}
+
+export interface Message {
+  authorID: { S: string; };
+  message: { S: string; };
+  createdAt: { S: string; };
+}
+
 export interface ChatState {
   messageError: string;
   loading: boolean;
@@ -44,6 +58,13 @@ export interface ChatState {
   conversationID: string;
   conversationlist: ActiveConversations | null;
   isConversationsLoaded: boolean;
+  selectedGroup?: {
+    messagelist?: GroupMessages;
+    isMessageListLoaded?: boolean;
+    since?: string;
+    message?: string;
+  }
+  groupID?: string;
 }
 
 export const initialChatState: ChatState = {

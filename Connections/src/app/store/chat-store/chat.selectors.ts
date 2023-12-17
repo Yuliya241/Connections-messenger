@@ -35,3 +35,7 @@ export const selectLoadingButton = createSelector(selectFeature, (state: ChatSta
 export const selectConversationList = createSelector(selectFeature, (state: ChatState) => {
   return state.conversationlist?.Items;
 });
+
+export const selectCurrentGroup = createSelector(selectFeature, (state: ChatState) => {
+  return state.selectedGroup;
+});

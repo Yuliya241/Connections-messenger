@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { ActiveConversations, Group, GroupPeople } from './chat-state.models';
+import { ActiveConversations, Group, GroupMessages, GroupPeople } from './chat-state.models';
 
 export const getListOfGroup = createAction('[Chat] Get List Of Group');
 
@@ -37,4 +37,33 @@ export const createConversationSuccess = createAction(
 
 export const getConversationList = createAction('[Chat] Get Conversation List');
 
-export const getConversationListSuccess = createAction('[Chat] Get Conversation List Success', props<{ data: ActiveConversations }>());
+export const getConversationListSuccess = createAction(
+  '[Chat] Get Conversation List Success',
+  props<{ data: ActiveConversations }>(),
+);
+
+export const setSelectedGroup = createAction(
+  '[Chat] Set Selected Group',
+  props<{ groupID: string }>(),
+);
+
+export const getLastMessages = createAction('[Chat] Get Last Messages', props<{ groupID: string, since: string }>());
+
+export const getLastMessagesSuccess = createAction(
+  '[Chat] Get Last Messages Success',
+  props<{ data: GroupMessages }>(),
+);
+
+export const getListOfMessages = createAction('[Chat] Get List Of Messages', props<{ groupID: string }>());
+
+export const getListOfMessagesSuccess = createAction(
+  '[Chat] Get List Of Messages Success',
+  props<{ data: GroupMessages }>(),
+);
+
+export const sendMessages = createAction('[Chat] Send Messages', props<{ groupID: string, message: string }>());
+
+export const sendMessagesSuccess = createAction(
+  '[Chat] Send Messages Success',
+  props<{ errorMessage: string, resulttype: string }>(),
+);

@@ -10,4 +10,6 @@ export const environment = {
   getUsers: 'https://tasks.app.rs.school/angular/users',
   getConversationList: 'https://tasks.app.rs.school/angular/conversations/list',
   postConversation: 'https://tasks.app.rs.school/angular/conversations/create',
+  postMessage: 'https://tasks.app.rs.school/angular/groups/append',
+  getMessages: 'https://tasks.app.rs.school/angular/groups/read',
 };

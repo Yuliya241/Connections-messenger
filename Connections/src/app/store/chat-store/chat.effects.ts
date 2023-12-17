@@ -19,10 +19,16 @@ import {
   errorMessage,
   getConversationList,
   getConversationListSuccess,
+  getLastMessages,
+  getLastMessagesSuccess,
   getListOfGroup,
   getListOfGroupSuccess,
+  getListOfMessages,
+  getListOfMessagesSuccess,
   getListOfPeople,
   getListOfPeopleSuccess,
+  sendMessages,
+  sendMessagesSuccess,
 } from './chat.actions';
 
 @Injectable()
@@ -59,7 +65,7 @@ export class ChatEffects {
         .pipe(
           map((group) => {
             this.dialog.closeAll();
-            return createGroupSuccess({ groupID: group.groupID, errorMessage: 'Group successful created', resulttype: MessagesTypes.SUCCESS });
+            return createGroupSuccess({ groupID: group.groupID || '', errorMessage: 'Group successful created', resulttype: MessagesTypes.SUCCESS });
           }),
           catchError((errorResponse: HttpErrorResponse) => {
             return of(errorMessage(
@@ -196,6 +202,72 @@ export class ChatEffects {
             ));
           }),
         )),
+    );
+  });
+
+  getMessagesList$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getListOfMessages),
+      switchMap((action) => this.chatService.getMessages(action.groupID)
+        .pipe(
+          map((data) => {
+            return getListOfMessagesSuccess({ data });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(errorMessage(
+              { errorMessage: errorResponse.error.message, resulttype: MessagesTypes.FAILED },
+            ));
+          }),
+        )),
+    );
+  });
+
+  getMessagesLast$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getLastMessages),
+      switchMap((action) => this.chatService.getLastMessages(action.groupID, action.since)
+        .pipe(
+          map((data) => {
+            return getLastMessagesSuccess({ data });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(errorMessage(
+              { errorMessage: errorResponse.error.message, resulttype: MessagesTypes.FAILED },
+            ));
+          }),
+        )),
+    );
+  });
+
+  sendMessage$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(sendMessages),
+      switchMap((action) => this.chatService.sendMessage(action.groupID, action.message)
+        .pipe(
+          map(() => {
+            return sendMessagesSuccess({ errorMessage: 'Message is sent', resulttype: MessagesTypes.SUCCESS });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(errorMessage(
+              { errorMessage: errorResponse.error.message, resulttype: MessagesTypes.FAILED },
+            ));
+          }),
+        )),
+    );
+  });
+
+  showSendMessageSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(sendMessagesSuccess),
+      switchMap((action) => {
+        return this.authService.openSnackBar(action.errorMessage, action.resulttype)
+          .afterDismissed()
+          .pipe(
+            map(() => {
+              return empty();
+            }),
+          );
+      }),
     );
   });
 }

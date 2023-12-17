@@ -3,7 +3,15 @@ import { inject, Injectable } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
 import { map, Observable, take, timer } from 'rxjs';
-import { ActiveConversations, Companion, Group, GroupPeople, Item } from 'src/app/store/chat-store/chat-state.models';
+import {
+  ActiveConversations,
+  Companion,
+  Group,
+  GroupMessages,
+  GroupPeople,
+  Item,
+  Message,
+} from 'src/app/store/chat-store/chat-state.models';
 import { environment } from 'src/environments/environment';
 
 import { ModalCreateComponent } from '../components/modal-create/modal-create.component';
@@ -29,7 +37,7 @@ export class ChatService {
   public deleteGroup(groupID: string) {
     const urlParams = new HttpParams()
       .set('groupID', groupID);
-    return this.http.delete(environment.deleteGroup, { params: urlParams });
+    return this.http.delete<Item>(environment.deleteGroup, { params: urlParams });
   }
 
   public getListOfPeople() {
@@ -45,9 +53,26 @@ export class ChatService {
   }
 
   public timerStart(): Observable<number> | undefined {
-    return timer(1000, 1000).pipe(
+    return timer(0, 1000).pipe(
       map((i) => this.count - i),
       take(this.count + 1),
     );
+  }
+
+  public sendMessage(groupID: string, message: string) {
+    return this.http.post<Message>(environment.postMessage, { groupID, message });
+  }
+
+  public getLastMessages(groupID: string, since: string) {
+    const urlParams = new HttpParams()
+      .set('groupID', groupID)
+      .set('since', since);
+    return this.http.get<GroupMessages>(environment.getMessages, { params: urlParams });
+  }
+
+  public getMessages(groupID: string) {
+    const urlParams = new HttpParams()
+      .set('groupID', groupID);
+    return this.http.get<GroupMessages>(environment.getMessages, { params: urlParams });
   }
 }

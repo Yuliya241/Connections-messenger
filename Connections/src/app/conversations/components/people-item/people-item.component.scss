@@ -4,7 +4,7 @@
   color: var(--black-color);
   cursor: pointer;
   display: flex;
-  justify-content: space-between;
+  gap: 5px;
   align-items: center;
 }
 
@@ -22,4 +22,8 @@
 .people-link {
   text-decoration: none;
   cursor: pointer;
+}
+
+.person-icon.mat-icon {
+  margin: 0;
 }

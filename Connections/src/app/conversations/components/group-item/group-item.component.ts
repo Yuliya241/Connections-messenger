@@ -12,16 +12,16 @@ import { ModalDeleteComponent } from '../modal-delete/modal-delete.component';
   styleUrls: ['./group-item.component.scss'],
 })
 export class GroupItemComponent implements OnInit {
-  public dialog = inject(MatDialog);
+  private dialog = inject(MatDialog);
 
-  public localStorage = inject(LocalStorageService);
+  private localStorage = inject(LocalStorageService);
 
   @Input() item?: Item;
 
   canDelete = false;
 
   public openDeleteDialog() {
-    this.dialog.open(ModalDeleteComponent, { data: { id: this.item?.id.S } });
+    this.dialog.open(ModalDeleteComponent, { data: { id: this.item?.id?.S } });
   }
 
   ngOnInit() {

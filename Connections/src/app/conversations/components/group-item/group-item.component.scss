@@ -22,3 +22,13 @@
 .group-link {
   text-decoration: none;
 }
+
+.group-icon.mat-icon {
+  margin: 0;
+}
+
+.group-name {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}

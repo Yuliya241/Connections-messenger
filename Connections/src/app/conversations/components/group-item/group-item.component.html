@@ -1,5 +1,9 @@
 <a class="group-link" [routerLink]="'group/' + [item?.id?.S]">
-  <div class="item" *ngIf="item?.name?.S as name">{{name}}
+  <div class="item">
+    <div class="group-name">
+      <mat-icon class="group-icon">group</mat-icon>
+      <span *ngIf="item?.name?.S as name">{{name}}</span>
+    </div>
     <button mat-raised-button color="primary" class="button" type="submit" *ngIf="canDelete"
       (click)="openDeleteDialog()">delete</button>
   </div>

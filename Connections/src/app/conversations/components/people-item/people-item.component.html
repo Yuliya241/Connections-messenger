@@ -2,6 +2,9 @@
   <a class="people-link" [routerLink]="'conversation/' + [item?.uid?.S]"
     (click)="!dialog.value ? createDialog() : false">
     <div class="item" [ngStyle]="{'background-color': (hasConversation$ | async) ? '#e2af35' : 'transparent'}"
-      *ngIf="item?.name?.S as name">{{name}}</div>
+      *ngIf="item?.name?.S as name">
+      <mat-icon class="person-icon">person</mat-icon>
+      <span>{{name}}</span>
+    </div>
   </a>
 </ng-container>

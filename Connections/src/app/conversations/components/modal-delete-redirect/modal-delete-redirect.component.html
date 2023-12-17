@@ -1,0 +1,9 @@
+<div class="wrapper">
+  <h2 class="title">Are you sure you want to delete this group?</h2>
+  <div class="buttons-block" mat-dialog-actions>
+    <button mat-raised-button color="primary" class="button cancel" type="button"
+      (click)="closeDialog()">Cancel</button>
+    <button mat-raised-button color="primary" class="button" (click)="deleteGroup()"
+      [disabled]="loading$ | async">Delete</button>
+  </div>
+</div>

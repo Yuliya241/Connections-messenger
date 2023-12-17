@@ -1,0 +1,5 @@
+<mat-card class="message" [ngStyle]="{'text-align' : isAuthor ? 'end' : 'start'}">
+  <div class="time">{{messageItem?.createdAt?.S | date:'medium'}}</div>
+  <div class="author" *ngIf="(peopleNames$ | async) as name">{{name}}</div>
+  <div>{{messageItem?.message?.S}}</div>
+</mat-card>

@@ -20,3 +20,10 @@ export const enum LocalStorageKeys {
   BUTTON = 'button',
   ISDARK = 'isDark',
 }
+
+export const enum Sort {
+  ASC = 'asc',
+  DESC = 'desc',
+}
+
+export type SortDirections = 'asc' | 'desc' | undefined;

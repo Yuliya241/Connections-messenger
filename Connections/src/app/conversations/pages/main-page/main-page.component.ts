@@ -32,9 +32,9 @@ export class MainPageComponent implements OnInit {
   loadingButton$: Observable<boolean> = this.store.select(selectLoadingButton);
 
   constructor(
-    public dialog: MatDialog,
+    private dialog: MatDialog,
     private store: Store,
-    public chatService: ChatService,
+    private chatService: ChatService,
     private destroyRef: DestroyRef,
   ) {
   }
@@ -46,18 +46,18 @@ export class MainPageComponent implements OnInit {
           this.store.dispatch(getListOfGroup());
         }
       });
-    setTimeout(() => this.store.select(selectPeoplelistLoaded)
+    this.store.select(selectPeoplelistLoaded)
       .pipe(takeUntilDestroyed(this.destroyRef)).subscribe((isPeoplelistLoaded) => {
         if (!isPeoplelistLoaded) {
           this.store.dispatch(getListOfPeople());
         }
-      }), 1000);
-    setTimeout(() => this.store.select(selectConversationList)
+      });
+    this.store.select(selectConversationList)
       .pipe(takeUntilDestroyed(this.destroyRef)).subscribe((isConversationListLoaded) => {
         if (!isConversationListLoaded) {
           this.store.dispatch(getConversationList());
         }
-      }), 1000);
+      });
   }
 
   public openDialog(): void {

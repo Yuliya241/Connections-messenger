@@ -1,7 +1,7 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { find, Observable, switchMap } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Companion, Person } from 'src/app/store/chat-store/chat-state.models';
 import { createConversation } from 'src/app/store/chat-store/chat.actions';
 import { selectConversationList } from 'src/app/store/chat-store/chat.selectors';
@@ -20,9 +20,8 @@ export class PeopleItemComponent implements OnInit {
 
   ngOnInit() {
     this.hasConversation$ = this.store.select(selectConversationList).pipe(
-      switchMap((items) => items || []),
-      find((member: Companion) => {
-        return this.item?.uid.S === member.companionID.S;
+      map((items) => {
+        return items?.find((member: Companion) => this.item?.uid.S === member.companionID.S);
       }),
     );
   }
