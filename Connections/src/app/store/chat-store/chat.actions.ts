@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { ActiveConversations, Group, GroupMessages, GroupPeople } from './chat-state.models';
+import { ActiveConversations, Group, GroupPeople, MessagesResponse } from './chat-state.models';
 
 export const getListOfGroup = createAction('[Chat] Get List Of Group');
 
@@ -51,19 +51,51 @@ export const getLastMessages = createAction('[Chat] Get Last Messages', props<{ 
 
 export const getLastMessagesSuccess = createAction(
   '[Chat] Get Last Messages Success',
-  props<{ data: GroupMessages }>(),
+
 );
 
 export const getListOfMessages = createAction('[Chat] Get List Of Messages', props<{ groupID: string }>());
 
 export const getListOfMessagesSuccess = createAction(
   '[Chat] Get List Of Messages Success',
-  props<{ data: GroupMessages }>(),
+  props<{ data: MessagesResponse }>(),
 );
 
 export const sendMessages = createAction('[Chat] Send Messages', props<{ groupID: string, message: string }>());
 
 export const sendMessagesSuccess = createAction(
   '[Chat] Send Messages Success',
+  props<{ errorMessage: string, resulttype: string }>(),
+);
+
+export const setSelectedUser = createAction(
+  '[Chat] Set Selected User',
+  props<{ conversationID: string }>(),
+);
+
+export const updateDialogMessages = createAction('[Chat] Update Dialog Messages', props<{ conversationID: string, since: string }>());
+
+export const updateDialogMessagesSuccess = createAction(
+  '[Chat] Update Dialog Messages Success',
+);
+
+export const getDialogMessages = createAction('[Chat] Get Dialog Messages', props<{ conversationID: string }>());
+
+export const getDialogfMessagesSuccess = createAction(
+  '[Chat] Get Dialog Messages Success',
+  props<{ data: MessagesResponse }>(),
+);
+
+export const sendDialogMessages = createAction('[Chat] Send Dialog Messages', props<{ conversationID: string, message: string }>());
+
+export const sendDialogMessagesSuccess = createAction(
+  '[Chat] Send Dialog Messages Success',
+  props<{ errorMessage: string, resulttype: string }>(),
+);
+
+export const deleteDialog = createAction('[Chat] Delete Dialog', props<{ conversationID: string }>());
+
+export const deleteDialogSuccess = createAction(
+  '[Chat] Delete Dialog Success',
   props<{ errorMessage: string, resulttype: string }>(),
 );

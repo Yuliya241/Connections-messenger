@@ -57,11 +57,11 @@
 .wrapper {
   background-color: var(--card-color);
   color: var(--icon-color);
-  position: fixed;
-  bottom: 10px;
-  right: 15px;
+  margin: 15px;
   padding: 10px;
+  max-width: 300px;
   border-radius: 20px;
+  align-self: flex-end;
 }
 
 .input {
@@ -97,4 +97,9 @@
 .count {
   color: rgb(238, 11, 11);
   font-size: 20px;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
 }

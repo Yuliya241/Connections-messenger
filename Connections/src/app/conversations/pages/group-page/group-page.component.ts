@@ -27,7 +27,7 @@ import {
   selectPeoplelistLoaded,
 } from 'src/app/store/chat-store/chat.selectors';
 
-import { ModalDeleteRedirectComponent } from '../../components/modal-delete-redirect/modal-delete-redirect.component';
+import { ModalDeleteGroupdialogComponent } from '../../components/modal-delete-groupdialog/modal-delete-groupdialog.component';
 import { ChatService } from '../../services/chat.service';
 
 @Component({
@@ -38,9 +38,9 @@ import { ChatService } from '../../services/chat.service';
 export class GroupPageComponent implements OnInit {
   @Input() messageItem?: Message;
 
-  id: string | null = null;
+  @Input() messages?: Message[];
 
-  message!: Message[];
+  id: string | null = null;
 
   canDelete$?: Observable<boolean>;
 
@@ -147,6 +147,6 @@ export class GroupPageComponent implements OnInit {
   }
 
   public deleteGroup() {
-    this.dialog.open(ModalDeleteRedirectComponent, { data: { id: this.id } });
+    this.dialog.open(ModalDeleteGroupdialogComponent, { data: { id: this.id } });
   }
 }

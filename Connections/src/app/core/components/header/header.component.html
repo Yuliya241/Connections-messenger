@@ -1,9 +1,12 @@
 <header class="header">
-  <button class="button" mat-raised-button color="primary" type="button" (click)="switchTheme()">
-    <mat-icon class="thema" *ngIf="isDark()">dark_mode</mat-icon>
-    <mat-icon class="thema" *ngIf="!isDark()">light_mode</mat-icon>
-  </button>
-  <app-login></app-login>
-  <button class="button" mat-raised-button color="primary" type="button" (click)="goToProfile()"
-    [disabled]="loading$ | async">Profile</button>
+  <mat-icon class="home" (click)="home()">home_icon</mat-icon>
+  <div class="buttons-block">
+    <button class="button" mat-raised-button color="primary" type="button" (click)="switchTheme()">
+      <mat-icon class="thema" *ngIf="isDark()">dark_mode</mat-icon>
+      <mat-icon class="thema" *ngIf="!isDark()">light_mode</mat-icon>
+    </button>
+    <app-login></app-login>
+    <button class="button" mat-raised-button color="primary" type="button" (click)="goToProfile()"
+      [disabled]="loading$ | async">Profile</button>
+  </div>
 </header>

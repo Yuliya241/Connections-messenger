@@ -8,22 +8,22 @@ import { selectLoading } from 'src/app/store/auth-store/selectors';
 import { deleteGroup } from 'src/app/store/chat-store/chat.actions';
 
 @Component({
-  selector: 'app-modal-delete-redirect',
-  templateUrl: './modal-delete-redirect.component.html',
-  styleUrls: ['./modal-delete-redirect.component.scss'],
+  selector: 'app-modal-delete-groupdialog',
+  templateUrl: './modal-delete-groupdialog.component.html',
+  styleUrls: ['./modal-delete-groupdialog.component.scss'],
 })
-export class ModalDeleteRedirectComponent {
+export class ModalDeleteGroupdialogComponent {
   loading$: Observable<boolean> = this.store.select(selectLoading);
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { id: string; },
     private store: Store,
-    public dialog: MatDialogRef<ModalDeleteRedirectComponent>,
+    public dialog: MatDialogRef<ModalDeleteGroupdialogComponent>,
     private router: Router,
   ) { }
 
   public closeDialog(): void {
-    this.dialog.close(ModalDeleteRedirectComponent);
+    this.dialog.close(ModalDeleteGroupdialogComponent);
   }
 
   public deleteGroup() {

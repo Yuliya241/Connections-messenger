@@ -1,0 +1,37 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--card-color);
+  margin: 0 auto;
+  border-radius: 5px;
+  padding: 30px 10px;
+}
+
+.button.mdc-button {
+  background-color: var(--form-button-color);
+  width: 50px;
+  height: 30px;
+  color: var(--text-color);
+  font-family: Roboto;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 14.06px;
+  align-self: flex-end;
+  margin: 10px 0;
+}
+
+.button.mdc-button[disabled] {
+  background-color: rgb(175, 167, 207)
+}
+
+.buttons-block {
+  display: flex;
+  align-self: flex-end;
+  gap: 10px;
+}
+
+.button.cancel.mdc-button {
+  background-color: rgb(136, 130, 158);
+}

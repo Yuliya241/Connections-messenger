@@ -1,9 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
-import { catchError, map, mergeMap, of, switchMap } from 'rxjs';
+import { catchError, map, mergeMap, of, switchMap, tap } from 'rxjs';
 import { ChatService } from 'src/app/conversations/services/chat.service';
 
 import { AuthService } from '../../auth/services/auth.service';
@@ -13,12 +14,16 @@ import {
   createConversationSuccess,
   createGroup,
   createGroupSuccess,
+  deleteDialog,
+  deleteDialogSuccess,
   deleteGroup,
   deleteGroupSuccess,
   empty,
   errorMessage,
   getConversationList,
   getConversationListSuccess,
+  getDialogfMessagesSuccess,
+  getDialogMessages,
   getLastMessages,
   getLastMessagesSuccess,
   getListOfGroup,
@@ -27,8 +32,12 @@ import {
   getListOfMessagesSuccess,
   getListOfPeople,
   getListOfPeopleSuccess,
+  sendDialogMessages,
+  sendDialogMessagesSuccess,
   sendMessages,
   sendMessagesSuccess,
+  updateDialogMessages,
+  updateDialogMessagesSuccess,
 } from './chat.actions';
 
 @Injectable()
@@ -40,6 +49,8 @@ export class ChatEffects {
   private readonly authService = inject(AuthService);
 
   private dialog = inject(MatDialog);
+
+  private router = inject(Router);
 
   getGroupList$ = createEffect(() => {
     return this.actions$.pipe(
@@ -83,7 +94,7 @@ export class ChatEffects {
         .pipe(
           map(() => {
             this.dialog.closeAll();
-            return deleteGroupSuccess({ errorMessage: 'Group successful deleted', resulttype: MessagesTypes.SUCCESS });
+            return deleteGroupSuccess({ errorMessage: 'Group is successfully deleted', resulttype: MessagesTypes.SUCCESS });
           }),
           catchError((errorResponse: HttpErrorResponse) => {
             return of(errorMessage(
@@ -139,6 +150,21 @@ export class ChatEffects {
     );
   });
 
+  showSuccessDeleteDialogMessage$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(deleteDialogSuccess),
+      switchMap((action) => {
+        return this.authService.openSnackBar(action.errorMessage, action.resulttype)
+          .afterDismissed()
+          .pipe(
+            map(() => {
+              return empty();
+            }),
+          );
+      }),
+    );
+  });
+
   showCreateConversationSuccessMessage$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(createConversationSuccess),
@@ -176,8 +202,8 @@ export class ChatEffects {
       ofType(createConversation),
       switchMap((action) => this.chatService.createConversation(action.companion)
         .pipe(
-          map((people) => {
-            return createConversationSuccess({ conversationID: people.companionID?.S, errorMessage: 'Successful created', resulttype: MessagesTypes.SUCCESS });
+          map((person) => {
+            return createConversationSuccess({ conversationID: person.id?.S || '', errorMessage: 'Successful created', resulttype: MessagesTypes.SUCCESS });
           }),
           catchError((errorResponse: HttpErrorResponse) => {
             return of(errorMessage(
@@ -185,6 +211,16 @@ export class ChatEffects {
             ));
           }),
         )),
+    );
+  });
+
+  createConversationSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(createConversationSuccess),
+      tap((action) => {
+        const id = action.conversationID;
+        this.router.navigate([`main/conversation/${id}`]);
+      }),
     );
   });
 
@@ -227,8 +263,8 @@ export class ChatEffects {
       ofType(getLastMessages),
       switchMap((action) => this.chatService.getLastMessages(action.groupID, action.since)
         .pipe(
-          map((data) => {
-            return getLastMessagesSuccess({ data });
+          map(() => {
+            return getLastMessagesSuccess();
           }),
           catchError((errorResponse: HttpErrorResponse) => {
             return of(errorMessage(
@@ -268,6 +304,92 @@ export class ChatEffects {
             }),
           );
       }),
+    );
+  });
+
+  deleteDialog$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(deleteDialog),
+      switchMap((action) => this.chatService.deleteConversation(action.conversationID)
+        .pipe(
+          map(() => {
+            this.dialog.closeAll();
+            return deleteDialogSuccess({ errorMessage: 'Conversation is successfully deleted', resulttype: MessagesTypes.SUCCESS });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(errorMessage(
+              { errorMessage: errorResponse.error.message, resulttype: MessagesTypes.FAILED },
+            ));
+          }),
+        )),
+    );
+  });
+
+  sendDialogMessage$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(sendDialogMessages),
+      switchMap((action) => this.chatService
+        .sendDialogMessage(action.conversationID, action.message)
+        .pipe(
+          map(() => {
+            return sendDialogMessagesSuccess({ errorMessage: 'Message is sent', resulttype: MessagesTypes.SUCCESS });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(errorMessage(
+              { errorMessage: errorResponse.error.message, resulttype: MessagesTypes.FAILED },
+            ));
+          }),
+        )),
+    );
+  });
+
+  showSendDialogMessageSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(sendDialogMessagesSuccess),
+      switchMap((action) => {
+        return this.authService.openSnackBar(action.errorMessage, action.resulttype)
+          .afterDismissed()
+          .pipe(
+            map(() => {
+              return empty();
+            }),
+          );
+      }),
+    );
+  });
+
+  getDialogMessages$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getDialogMessages),
+      switchMap((action) => this.chatService.getConversationMessages(action.conversationID)
+        .pipe(
+          map((data) => {
+            return getDialogfMessagesSuccess({ data });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(errorMessage(
+              { errorMessage: errorResponse.error.message, resulttype: MessagesTypes.FAILED },
+            ));
+          }),
+        )),
+    );
+  });
+
+  updateDialogMessages$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(updateDialogMessages),
+      switchMap((action) => this.chatService
+        .updateConversationMessages(action.conversationID, action.since)
+        .pipe(
+          map(() => {
+            return updateDialogMessagesSuccess();
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(errorMessage(
+              { errorMessage: errorResponse.error.message, resulttype: MessagesTypes.FAILED },
+            ));
+          }),
+        )),
     );
   });
 }

@@ -4,7 +4,13 @@
   padding: 15px;
   background-color: var(--header-color);
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.buttons-block {
+  display: flex;
   gap: 5px;
 }
 
@@ -21,4 +27,14 @@
 .thema.mat-icon {
   margin: 0;
   color: var(--icon-color);
+}
+
+.home.mat-icon {
+  margin: 0;
+  color: rgba(255, 255, 255);
+  cursor: pointer;
+}
+
+.home.mat-icon:hover {
+  transform: scale(1.1);
 }

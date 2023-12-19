@@ -55,4 +55,8 @@ export class HeaderComponent {
         }
       });
   }
+
+  public home() {
+    this.router.navigate(['main']);
+  }
 }

@@ -18,8 +18,6 @@ export class MessageComponent implements OnInit {
 
   isAuthor = false;
 
-  isName = false;
-
   peopleNames$?: Observable<string | undefined>;
 
   constructor(private store: Store) { }

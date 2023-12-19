@@ -9,9 +9,9 @@ export interface Item {
   createdAt?: { S: string; };
   createdBy?: { S: string; };
   groupID?: string;
-  isLoadedGroup: boolean;
-  messages?: GroupMessages;
-  lastUpdatedAt?: string; // since
+  isLoadedGroup?: boolean;
+  messages?: MessagesResponse;
+  lastUpdatedAt?: string;
 }
 
 export interface GroupPeople {
@@ -31,10 +31,13 @@ export interface ActiveConversations {
 
 export interface Companion {
   id?: { S: string; };
-  companionID: { S: string; };
+  companionID?: { S: string; };
+  isLoadedDialog: boolean;
+  messages?: MessagesResponse;
+  lastUpdatedAt?: string;
 }
 
-export interface GroupMessages {
+export interface MessagesResponse {
   Count?: number;
   Items: Message[];
 }
@@ -59,7 +62,13 @@ export interface ChatState {
   conversationlist: ActiveConversations | null;
   isConversationsLoaded: boolean;
   selectedGroup?: {
-    messagelist?: GroupMessages;
+    messagelist?: MessagesResponse;
+    isMessageListLoaded?: boolean;
+    since?: string;
+    message?: string;
+  }
+  selectedUser?: {
+    messagelist?: MessagesResponse;
     isMessageListLoaded?: boolean;
     since?: string;
     message?: string;

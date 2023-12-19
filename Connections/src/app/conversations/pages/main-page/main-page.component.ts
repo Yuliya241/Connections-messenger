@@ -64,6 +64,8 @@ export class MainPageComponent implements OnInit {
     this.dialog.open(ModalCreateComponent);
   }
 
+  count = 61;
+
   public getGroup(): void {
     this.store.dispatch(getListOfGroup());
     this.countGroup$ = this.chatService.timerStart();

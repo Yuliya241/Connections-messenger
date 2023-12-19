@@ -1,1 +1,30 @@
-<p>conversation-page works!</p>
+<div class="conversation">
+  <div class="buttons-wrapper" *ngIf="messageList$ | async as messageList">
+    <a class="link-back" routerLink="/main">&#10232;&nbsp;Back</a>
+    <div class="buttons-block">
+      <button mat-raised-button color="primary" class="button update" type="button"
+        (click)="updateMessages(messageList)"
+        [disabled]="(countDownTimer$ | async) !== 0 && (countDownTimer$ | async) || (loading$ | async)">Update</button>
+      <span class="count" *ngIf="(countDownTimer$ | async) !== 0">{{countDownTimer$ | async}}</span>
+      <button mat-raised-button color="primary" class="button delete" type="submit" (click)="deleteDialog()">Delete
+        dialog</button>
+    </div>
+  </div>
+  <app-message-list *ngIf="messageList$ | async; let data" [messageItems]="data | sortByDate: 'asc'"></app-message-list>
+
+  <form class="wrapper" [formGroup]="formMessage">
+    <div class="form-wrapper">
+      <h2 class="title">New message</h2>
+      <div class="input-field">
+        <label for="message"></label>
+        <input class="input" id="message" type="text" placeholder="Enter the message..." formControlName="text"
+          autocomplete="given-message" [class.invalid]="text.invalid && (text.dirty || text.touched || isSubmitted)">
+      </div>
+      <small *ngIf="text.invalid && (text.dirty || text.touched || isSubmitted)" class="error-message">
+        <div *ngIf="text.errors?.['required']">Please enter a message</div>
+      </small>
+      <button mat-raised-button color="primary" class="button" type="submit" (click)="send()"
+        [disabled]="formMessage.invalid || (loading$ | async)">Send</button>
+    </div>
+  </form>
+</div>

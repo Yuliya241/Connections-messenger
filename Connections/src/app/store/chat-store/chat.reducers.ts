@@ -1,16 +1,20 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { ChatState, initialChatState, Item } from './chat-state.models';
+import { ChatState, Companion, initialChatState, Item } from './chat-state.models';
 import {
   createConversation,
   createConversationSuccess,
   createGroup,
   createGroupSuccess,
+  deleteDialog,
+  deleteDialogSuccess,
   deleteGroup,
   deleteGroupSuccess,
   errorMessage,
   getConversationList,
   getConversationListSuccess,
+  getDialogfMessagesSuccess,
+  getDialogMessages,
   getLastMessages,
   getLastMessagesSuccess,
   getListOfGroup,
@@ -19,9 +23,14 @@ import {
   getListOfMessagesSuccess,
   getListOfPeople,
   getListOfPeopleSuccess,
+  sendDialogMessages,
+  sendDialogMessagesSuccess,
   sendMessages,
   sendMessagesSuccess,
   setSelectedGroup,
+  setSelectedUser,
+  updateDialogMessages,
+  updateDialogMessagesSuccess,
 } from './chat.actions';
 
 export const chatReducer = createReducer<ChatState>(
@@ -54,7 +63,6 @@ export const chatReducer = createReducer<ChatState>(
         name: { S: state.newName },
         createdBy: { S: localStorage.getItem('uid') || '' },
         groupID: action.groupID,
-        isLoadedGroup: true,
       },
       ],
     },
@@ -126,7 +134,8 @@ export const chatReducer = createReducer<ChatState>(
     messageError: '',
     conversationlist: {
       Items: [...[...state.conversationlist?.Items || []], {
-        companionID: { S: action.conversationID },
+        id: { S: action.conversationID },
+        isLoadedDialog: true,
       },
       ],
     },
@@ -157,12 +166,6 @@ export const chatReducer = createReducer<ChatState>(
       messagelist: action.data,
       isMessageListLoaded: true,
     },
-    grouplist: {
-      Items: [...[...state.grouplist?.Items || []], {
-        isLoadedGroup: true,
-      },
-      ],
-    },
     loaded: true,
     loading: false,
     isPeoplelistLoaded: true,
@@ -179,15 +182,22 @@ export const chatReducer = createReducer<ChatState>(
     selectedGroup: {
       ...state.selectedGroup,
       since: action.since,
+      isMessageListLoaded: true,
     },
   })),
-  on(getLastMessagesSuccess, (state, action): ChatState => ({
+  on(getLastMessagesSuccess, (state): ChatState => ({
     ...state,
     messageError: '',
     selectedGroup: {
       ...state.selectedGroup,
-      messagelist: action.data,
+      // messagelist: action.data,
       isMessageListLoaded: true,
+    },
+    grouplist: {
+      Items: [...[...state.grouplist?.Items || []], {
+        isLoadedGroup: true,
+      },
+      ],
     },
     loaded: true,
     loading: false,
@@ -219,5 +229,103 @@ export const chatReducer = createReducer<ChatState>(
     loaded: true,
     loading: false,
   })),
+  on(deleteDialog, (state, action): ChatState => ({
+    ...state,
+    messageError: '',
+    loading: true,
+    conversationlist: {
+      Items: [...state.conversationlist?.Items || []]
+        .filter((person: Companion) => person?.id?.S !== action.conversationID),
+    },
+  })),
+  on(deleteDialogSuccess, (state): ChatState => ({
+    ...state,
+    messageError: '',
+    loaded: true,
+    loading: false,
+    isConversationsLoaded: true,
+  })),
+  on(sendDialogMessages, (state, action): ChatState => ({
+    ...state,
+    messageError: '',
+    loading: true,
+    conversationID: action.conversationID,
+    selectedUser: {
+      ...state.selectedUser,
+      messagelist: {
+        ...state.selectedUser?.messagelist,
+        Items: [...state.selectedUser?.messagelist?.Items || [], {
+          authorID: { S: localStorage.getItem('uid') || '' },
+          message: { S: action.message },
+          createdAt: { S: String(Date.now()) },
+        }],
+      },
+    },
+  })),
+  on(sendDialogMessagesSuccess, (state): ChatState => ({
+    ...state,
+    messageError: '',
+    loaded: true,
+    loading: false,
+  })),
 
+  on(getDialogMessages, (state, action): ChatState => ({
+    ...state,
+    messageError: '',
+    loading: true,
+    loadingButton: true,
+    conversationID: action.conversationID,
+  })),
+  on(getDialogfMessagesSuccess, (state, action): ChatState => ({
+    ...state,
+    messageError: '',
+    selectedUser: {
+      ...state.selectedUser,
+      messagelist: action.data,
+      isMessageListLoaded: true,
+    },
+    conversationlist: {
+      Items: [...[...state.conversationlist?.Items || []], {
+        isLoadedDialog: true,
+      },
+      ],
+    },
+    loaded: true,
+    loading: false,
+    isPeoplelistLoaded: true,
+    isGrouplistLoaded: true,
+    isConversationsLoaded: true,
+    loadingButton: false,
+  })),
+  on(updateDialogMessages, (state, action): ChatState => ({
+    ...state,
+    messageError: '',
+    loading: true,
+    loadingButton: true,
+    conversationID: action.conversationID,
+    selectedUser: {
+      ...state.selectedUser,
+      since: action.since,
+    },
+  })),
+  on(updateDialogMessagesSuccess, (state): ChatState => ({
+    ...state,
+    messageError: '',
+    selectedUser: {
+      ...state.selectedUser,
+      // messagelist: action.data,
+      isMessageListLoaded: true,
+    },
+    loaded: true,
+    loading: false,
+    isPeoplelistLoaded: true,
+    isGrouplistLoaded: true,
+    isConversationsLoaded: true,
+    loadingButton: false,
+  })),
+  on(setSelectedUser, (state, action): ChatState => ({
+    ...state,
+    selectedUser: action.conversationID === state.conversationID ? state.selectedUser : undefined,
+    conversationID: action.conversationID,
+  })),
 );

@@ -39,3 +39,7 @@ export const selectConversationList = createSelector(selectFeature, (state: Chat
 export const selectCurrentGroup = createSelector(selectFeature, (state: ChatState) => {
   return state.selectedGroup;
 });
+
+export const selectCurrentUser = createSelector(selectFeature, (state: ChatState) => {
+  return state.selectedUser;
+});
