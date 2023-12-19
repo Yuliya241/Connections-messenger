@@ -46,7 +46,7 @@ export class PeopleItemComponent implements OnInit {
     this.store.dispatch(createConversation({ companion: this.item?.uid.S || '' }));
   }
 
-  routToDialogPage() {
+  goToDialogPage() {
     this.conversationId$?.subscribe((a) => this.url = a);
     this.router.navigate(['main/conversation/', this.url]);
   }

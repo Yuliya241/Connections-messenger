@@ -30,8 +30,8 @@ export interface ActiveConversations {
 }
 
 export interface Companion {
-  id?: { S: string; };
-  companionID?: { S: string; };
+  id: { S: string; };
+  companionID: { S: string; };
   isLoadedDialog: boolean;
   messages?: MessagesResponse;
   lastUpdatedAt?: string;

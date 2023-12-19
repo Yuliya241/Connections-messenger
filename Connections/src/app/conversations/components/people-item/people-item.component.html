@@ -1,18 +1,7 @@
-<!-- <ng-container *ngIf="{ value: hasConversation$ | async } as dialog">
-  <a class="people-link" [routerLink]="'conversation/' + [conversationId$ | async]"
-    (click)="!dialog.value ? createDialog() : false">
-    <div class="item" [ngStyle]="{'background-color': (hasConversation$ | async) ? '#e2af35' : 'transparent'}"
-      *ngIf="item?.name?.S as name">
-      <mat-icon class="person-icon">person</mat-icon>
-      <span>{{name}}</span>
-    </div>
-  </a>
-</ng-container> -->
-
 <!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 <ng-container *ngIf="{ value: hasConversation$ | async } as dialog">
-  <a class="people-link" (click)=" !dialog.value ? createDialog() : routToDialogPage()">
+  <a class="people-link" (click)="!(dialog.value) ? createDialog() : goToDialogPage()">
     <div class="item" [ngStyle]="{'background-color': (hasConversation$ | async) ? '#e2af35' : 'transparent'}"
       *ngIf="item?.name?.S as name">
       <mat-icon class="person-icon">person</mat-icon>

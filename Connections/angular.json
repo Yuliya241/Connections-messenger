@@ -27,7 +27,12 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "_redirects",
+                "input": "src",
+                "output": "/"
+              }
             ],
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",
@@ -113,6 +118,14 @@
               "src/**/*.ts",
               "src/**/*.html"
             ]
+          }
+        },
+        "deploy": {
+          "builder": "@netlify-builder/deploy:deploy",
+          "options": {
+            "outputPath": "dist/connections",
+            "netlifyToken": "nfp_xS56Q7USKkvhKAEkWAZW9Y1jAhzCbd267a7b",
+            "siteId": "1c91fb7c-db92-4590-86f9-d872eebf7d31"
           }
         }
       }

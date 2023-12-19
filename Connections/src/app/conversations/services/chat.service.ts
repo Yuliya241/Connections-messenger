@@ -49,7 +49,7 @@ export class ChatService {
   }
 
   public createConversation(companion: string) {
-    return this.http.post<Companion>(environment.postConversation, { companion });
+    return this.http.post<{ conversationID: string }>(environment.postConversation, { companion });
   }
 
   public timerStart(): Observable<number> | undefined {

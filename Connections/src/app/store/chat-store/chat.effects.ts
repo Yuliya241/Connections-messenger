@@ -203,7 +203,7 @@ export class ChatEffects {
       switchMap((action) => this.chatService.createConversation(action.companion)
         .pipe(
           map((person) => {
-            return createConversationSuccess({ conversationID: person.id?.S || '', errorMessage: 'Successful created', resulttype: MessagesTypes.SUCCESS });
+            return createConversationSuccess({ conversationID: person.conversationID, errorMessage: 'Successful created', resulttype: MessagesTypes.SUCCESS });
           }),
           catchError((errorResponse: HttpErrorResponse) => {
             return of(errorMessage(
@@ -219,10 +219,10 @@ export class ChatEffects {
       ofType(createConversationSuccess),
       tap((action) => {
         const id = action.conversationID;
-        this.router.navigate([`main/conversation/${id}`]);
+        this.router.navigate(['main/conversation/', id]);
       }),
     );
-  });
+  }, { dispatch: false });
 
   getConversationList$ = createEffect(() => {
     return this.actions$.pipe(

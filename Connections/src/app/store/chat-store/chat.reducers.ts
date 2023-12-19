@@ -129,17 +129,17 @@ export const chatReducer = createReducer<ChatState>(
     loading: true,
     conversationID: action.companion,
   })),
-  on(createConversationSuccess, (state, action): ChatState => ({
+  on(createConversationSuccess, (state, { conversationID }): ChatState => ({
     ...state,
     messageError: '',
     conversationlist: {
       Items: [...[...state.conversationlist?.Items || []], {
-        id: { S: action.conversationID },
+        id: { S: state.conversationID },
+        companionID: { S: conversationID },
         isLoadedDialog: true,
       },
       ],
     },
-    conversationID: action.conversationID,
     loaded: true,
     loading: false,
     isGrouplistLoaded: true,
@@ -190,7 +190,6 @@ export const chatReducer = createReducer<ChatState>(
     messageError: '',
     selectedGroup: {
       ...state.selectedGroup,
-      // messagelist: action.data,
       isMessageListLoaded: true,
     },
     grouplist: {
@@ -284,12 +283,6 @@ export const chatReducer = createReducer<ChatState>(
       messagelist: action.data,
       isMessageListLoaded: true,
     },
-    conversationlist: {
-      Items: [...[...state.conversationlist?.Items || []], {
-        isLoadedDialog: true,
-      },
-      ],
-    },
     loaded: true,
     loading: false,
     isPeoplelistLoaded: true,
@@ -313,7 +306,6 @@ export const chatReducer = createReducer<ChatState>(
     messageError: '',
     selectedUser: {
       ...state.selectedUser,
-      // messagelist: action.data,
       isMessageListLoaded: true,
     },
     loaded: true,
