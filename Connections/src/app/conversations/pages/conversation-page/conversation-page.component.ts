@@ -114,11 +114,11 @@ export class ConversationPageComponent implements OnInit {
     return this.formMessage.controls.text;
   }
 
-  public send(): void {
+  public send(message: Message[]): void {
     this.store.dispatch(sendDialogMessages(
       { conversationID: this.id || '', message: this.formMessage.value.text || '' },
     ));
-    const lastMessageTimeStamp = this.messages?.at(-1)?.createdAt.S;
+    const lastMessageTimeStamp = message?.at(-1)?.createdAt.S;
     this.store.dispatch(updateDialogMessages(
       { conversationID: this.id || '', since: lastMessageTimeStamp || '' },
     ));

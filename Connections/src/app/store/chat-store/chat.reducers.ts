@@ -192,12 +192,6 @@ export const chatReducer = createReducer<ChatState>(
       ...state.selectedGroup,
       isMessageListLoaded: true,
     },
-    grouplist: {
-      Items: [...[...state.grouplist?.Items || []], {
-        isLoadedGroup: true,
-      },
-      ],
-    },
     loaded: true,
     loading: false,
     isPeoplelistLoaded: true,

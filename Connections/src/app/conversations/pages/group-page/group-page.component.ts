@@ -131,9 +131,13 @@ export class GroupPageComponent implements OnInit {
     return this.formMessage.controls.text;
   }
 
-  public send(): void {
+  public send(message: Message[]): void {
     this.store.dispatch(sendMessages(
       { groupID: this.id || '', message: this.formMessage.value.text || '' },
+    ));
+    const lastMessageTimeStamp = message.at(-1)?.createdAt.S;
+    this.store.dispatch(getLastMessages(
+      { groupID: this.id || '', since: lastMessageTimeStamp || '' },
     ));
     this.formMessage.reset();
   }

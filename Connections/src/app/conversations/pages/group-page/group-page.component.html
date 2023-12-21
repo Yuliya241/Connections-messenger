@@ -11,7 +11,7 @@
   </div>
   <app-message-list *ngIf="messageList$ | async; let data" [messageItems]="data | sortByDate: 'asc'"></app-message-list>
 
-  <form class="wrapper" [formGroup]="formMessage">
+  <form class="wrapper" [formGroup]="formMessage" *ngIf="messageList$ | async as messageList">
     <div class="form-wrapper">
       <h2 class="title">New message</h2>
       <div class="input-field">
@@ -22,7 +22,7 @@
       <small *ngIf="text.invalid && (text.dirty || text.touched || isSubmitted)" class="error-message">
         <div *ngIf="text.errors?.['required']">Please enter a message</div>
       </small>
-      <button mat-raised-button color="primary" class="button" type="submit" (click)="send()"
+      <button mat-raised-button color="primary" class="button" type="submit" (click)="send(messageList)"
         [disabled]="formMessage.invalid || (loading$ | async)">Send</button>
     </div>
   </form>

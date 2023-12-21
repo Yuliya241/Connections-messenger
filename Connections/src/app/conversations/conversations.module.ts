@@ -12,6 +12,7 @@ import { MessageListComponent } from './components/message-list/message-list.com
 import { MessageComponent } from './components/message/message.component';
 import { ModalCreateComponent } from './components/modal-create/modal-create.component';
 import { ModalDeleteGroupdialogComponent } from './components/modal-delete-groupdialog/modal-delete-groupdialog.component';
+import { ModalDeleteUserdialogComponent } from './components/modal-delete-userdialog/modal-delete-userdialog.component';
 import { ModalDeleteComponent } from './components/modal-delete/modal-delete.component';
 import { PeopleItemComponent } from './components/people-item/people-item.component';
 import { PeopleListItemsComponent } from './components/people-list-items/people-list-items.component';
@@ -20,7 +21,6 @@ import { ConversationPageComponent } from './pages/conversation-page/conversatio
 import { GroupPageComponent } from './pages/group-page/group-page.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { SortByDatePipe } from './pipes/sort-by-date.pipe';
-import { ModalDeleteUserdialogComponent } from './components/modal-delete-userdialog/modal-delete-userdialog.component';
 
 @NgModule({
   declarations: [
