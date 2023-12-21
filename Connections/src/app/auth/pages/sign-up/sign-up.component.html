@@ -8,6 +8,8 @@
     </div>
     <small *ngIf="name.invalid && (name.dirty || name.touched || isSubmitted)" class="error-message">
       <div *ngIf="name.errors?.['required']">Please enter a name</div>
+      <div *ngIf="name.errors?.['maxlength']">Maximum 40 characters is allowed</div>
+      <div *ngIf="name.errors?.['pattern']">Allowed only letters (any language) or spaces</div>
     </small>
     <div class="input-field">
       <label class="label" for="login">email</label>
@@ -17,7 +19,7 @@
     <small *ngIf="email.invalid && (email.dirty || email.touched || isSubmitted)" class="error-message">
       <div *ngIf="email.errors?.['required']">Please enter an email</div>
       <div *ngIf="email.errors?.['email']">The email is invalid</div>
-      <div *ngIf="email.errors?.['emailExistant']">The email is already exist</div>
+      <div *ngIf="email.errors?.['emailExistant'] && isSubmitted">The email is already exist</div>
     </small>
     <div style="color:red" *ngIf="isEmailExist && (errorMessage$ | async)">The email is already exist</div>
     <div class="input-field">

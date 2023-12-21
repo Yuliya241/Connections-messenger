@@ -105,6 +105,15 @@ export class ChatEffects {
     );
   });
 
+  deleteGroupSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(deleteGroupSuccess),
+      tap(() => {
+        this.router.navigate(['main']);
+      }),
+    );
+  }, { dispatch: false });
+
   showErrorMessage$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(errorMessage),

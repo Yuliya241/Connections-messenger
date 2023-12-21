@@ -22,10 +22,10 @@ export class SignUpComponent {
 
   emailSignUp$: Observable<string[]> = this.store.select(selectEmails);
 
-  urlImageregex = /(https:\/\/)([^\s(["<,>/]*)(\/)[^\s[",><]*(.png|.jpg)(\?[^\s[",><]*)?/;
+  nameRegex = /^[A-Za-z\s]*$/;
 
   formSignUp = this.fb.group({
-    name: ['', { nonNullable: true, validators: Validators.required }],
+    name: ['', { nonNullable: true, validators: [Validators.required, Validators.maxLength(40), Validators.pattern(this.nameRegex)] }],
     email: ['', [Validators.required, Validators.email], emailValidator(this.emailSignUp$)],
     password: ['', Validators.compose([
       Validators.required, passwordStrengthValidator(/\d/, { hasNumber: true }),
