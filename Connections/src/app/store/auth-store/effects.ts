@@ -154,7 +154,7 @@ export class AuthEffects {
       switchMap((action) => this.authService.updateProfile(action.name)
         .pipe(
           map(() => {
-            return updateUserSuccess();
+            return updateUserSuccess({ errorMessage: 'Changes saved successfully', resulttype: MessagesTypes.SUCCESS });
           }),
           catchError((errorResponse: HttpErrorResponse) => {
             return of(errorMessage(
@@ -162,6 +162,21 @@ export class AuthEffects {
             ));
           }),
         )),
+    );
+  });
+
+  showSuccessProfileMessage$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(updateUserSuccess),
+      switchMap((action) => {
+        return this.authService.openSnackBar(action.errorMessage, action.resulttype)
+          .afterDismissed()
+          .pipe(
+            map(() => {
+              return empty();
+            }),
+          );
+      }),
     );
   });
 }

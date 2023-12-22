@@ -20,4 +20,4 @@ export const setUser = createAction('[Auth] Set User', props<{ data: UserDetails
 
 export const updateUser = createAction('[Auth] Update User', props<{ name: string }>());
 
-export const updateUserSuccess = createAction('[Auth] Update User Success');
+export const updateUserSuccess = createAction('[Auth] Update User Success', props<{ errorMessage: string, resulttype: string }>());
